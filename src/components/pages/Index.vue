@@ -7,7 +7,7 @@
       <!--search/start-->
       <div class="index-search">
         <x-icon class="icon-search" type="ios-search" size="22"></x-icon>
-        <div class="input-box">请输入职位名/公司名/院校名/关键字</div>
+        <div class="input-box" @click="openSearchPage()">请输入职位名/公司名/院校名/关键字</div>
       </div>
       <!--search/end-->
       <!--合作人口/start-->
@@ -43,7 +43,7 @@
       <div class="common-moudle-wrap">
         <div class="common-moudle-title">建筑名企<router-link tag="span" :to="{ path:'companylist'}">全部&nbsp》</router-link></div>
         <div class="common-moudle-list-wrap">
-          <com-list></com-list>
+          <com-list :data="companyList"></com-list>
         </div>
         <!-- <div class="opt-btn">
             <div class="btn">
@@ -92,14 +92,8 @@
       <div class="common-moudle-wrap">
         <div class="common-moudle-title">建筑招聘信息<router-link tag="span" :to="{ path:'positionlist'}">全部&nbsp》</router-link></div>
         <div class="common-moudle-list-wrap" style="padding:0">
-          <job-list></job-list>
+          <job-list :data="jobList"></job-list>
         </div>
-        <!-- <div class="opt-btn">
-            <div class="btn">
-                <img :src="require('../../assets/img/reload-icon.png')" width="18" height="18" alt="">
-                <span>换一批</span>
-            </div>
-        </div> -->
       </div>
       <!--hots-jobs/end-->
     </div>
@@ -111,7 +105,6 @@
 
 <script>
 import { Swiper , Flexbox , FlexboxItem} from 'vux'
-import PositionList from '../common/PositionList'
 import ComList from '../common/ComList'
 import JobList from '../common/JobList'
 import Api from '../../api'
@@ -121,7 +114,6 @@ export default {
     Swiper,
     Flexbox,
     FlexboxItem,
-    PositionList,
     JobList,
     ComList
   },
@@ -130,19 +122,25 @@ export default {
     return {
       defaultImg:require('@/assets/img/no_photo_male.png'),
       _index:0,
-      bannerList:[{
-        url: 'www.baidu.com',
-        img: 'https://static.vux.li/demo/1.jpg',
-        fallbackImg: 'https://static.vux.li/demo/3.jpg'
-      }, {
-        url: 'javascript:',
-        img: 'https://static.vux.li/demo/2.jpg',
-        fallbackImg: 'https://static.vux.li/demo/3.jpg'
-      }, {
-        url: 'javascript:',
-        img: 'https://static.vux.li/demo/3.jpg',
-        fallbackImg: 'https://static.vux.li/demo/3.jpg'
-      }],
+      jobList:[{},{},{},{},{},{},{},{},{},{}],
+      companyList:[{},{},{},{}],
+      bannerList:[
+        {
+          url: 'www.baidu.com',
+          img: 'https://static.vux.li/demo/1.jpg',
+          fallbackImg: 'https://static.vux.li/demo/3.jpg'
+        },
+        {
+          url: 'javascript:',
+          img: 'https://static.vux.li/demo/2.jpg',
+          fallbackImg: 'https://static.vux.li/demo/3.jpg'
+        },
+        {
+          url: 'javascript:',
+          img: 'https://static.vux.li/demo/3.jpg',
+          fallbackImg: 'https://static.vux.li/demo/3.jpg'
+        }
+      ],
       loadMoreText:'加载更多',
       defaultImg:require('@/assets/img/no_photo_male.png')
     }
@@ -169,6 +167,9 @@ export default {
       // this.store.vux.commit('updateLoadingStatus', {isLoading: true})
       this.updateLoading({isLoading: true})
       this.pageNo++
+    },
+    openSearchPage() {
+      this.$router.push('/search')
     }
   },
   watch:{

@@ -1,6 +1,6 @@
 <template>
   <div class="companylist-page-wrap">
-    <com-list></com-list>
+    <com-list :data="companyList"></com-list>
   </div>
 </template>
 <script>
@@ -12,7 +12,8 @@ export default {
   name: "",
   data () {
     return {
-      defaultImg:require('@/assets/img/no_photo_male.png')
+      defaultImg:require('@/assets/img/no_photo_male.png'),
+      companyList:[{},{},{},{},{},{},{},{}],
     }
   }
 }

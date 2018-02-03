@@ -1,16 +1,22 @@
 <template>
     <ul class="company-list">
-      <router-link tag="li" v-for="(item,index) in 4" :key="index" :to="{ path: 'companydetail', params: { id: 123 }}">
+      <router-link tag="li" v-for="(item,index) in data" :key="index" :to="{ path: 'companydetail', params: { id: 123 }}">
         <div class="img"><img :src="defaultImg" alt=""> </div>
         <div class="info">
           <h3>广西裕华建设集团有限公司</h3>
-          <span>民营/50人</span>
+          <span>民营/50人</span><span>招聘职位<i>5</i>个</span>
         </div>
       </router-link>
     </ul>
 </template>
 <script>
 export default {
+  props: {
+    data:{
+      type:Array,
+      default:[]
+    }
+  },
   name: "",
   data () {
     return {
@@ -53,5 +59,12 @@ export default {
 }
 .company-list .info span{
   color: #999;
+  font-size: 14px;
+  margin-right: 6px;
+}
+.info span i{
+  color: #009ee5;
+  font-style: normal;
+  margin: 0 2px;
 }
 </style>

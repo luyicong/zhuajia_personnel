@@ -1,6 +1,6 @@
 <template>
   <div class="jobs-list-page">
-      <ul class="job-list">
+      <!-- <ul class="job-list">
         <router-link tag="li" v-for="(item,index) in 15" :key="index" :to="{ path: 'posdetail', params: { id: 123 }}">
           <div class="left-info">
             <p class="job-name">建筑设计师{{index}}</p>
@@ -13,25 +13,24 @@
             <p>南宁市/青秀区</p>
           </div>
         </router-link>
-      </ul>
+      </ul> -->
+      <job-list :data="jobList"></job-list>
   </div>
 </template>
 <script>
 import JobList from '../common/JobList'
-import { mapState } from 'vuex'
 export default {
   components: {
     JobList
   },
-  name: "",
-  data: () => ({
-
-  }),
-  computed: {
-    ...mapState({
-      isLoading: state => state.vux.isLoading,
-      direction: state => state.vux.direction
-    }),
+  data () {
+    return {
+      jobList:[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]
+    }
+  },
+  created() {
+    //do something after creating vue instance
+    console.log('121212')
   },
   methods: {
 
@@ -42,7 +41,7 @@ export default {
 .jobs-list-page{
   background-color: #fff;
 }
-.job-list{
+/* .job-list{
   width: 100%;
   overflow: hidden;
 }
@@ -76,5 +75,5 @@ export default {
 .right-info .salary{
   color: #ff552e;
   font-size: 16px;
-}
+} */
 </style>

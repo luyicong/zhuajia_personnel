@@ -53,19 +53,29 @@
           </div>
         </div>
       </div>
+      <!--企业正在招聘职位-->
+      <div class="resume-info-moudle user-edu-experience">
+        <div class="moudle-common-title">该企业正在招聘职位</div>
+        <div class="info-moudle-content">
+          <job-list :data="jobList"></job-list>
+        </div>
+      </div>
     </div>
 </template>
 <script>
 import { Flexbox , FlexboxItem} from 'vux'
+import JobList from '../common/JobList'
 export default {
   components: {
     Flexbox,
-    FlexboxItem
+    FlexboxItem,
+    JobList
   },
   name: "",
   data () {
     return  {
-      defaultImg:require('@/assets/img/no_photo_male.png')
+      defaultImg:require('@/assets/img/no_photo_male.png'),
+      jobList:[{},{},{},{},{},{},{},{},{},{}]
     }
   }
 }

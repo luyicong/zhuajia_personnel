@@ -17,14 +17,6 @@ export default new Router({
       name: 'index',
       component: Index
     },
-    //职位列表
-    {
-      path: '/positionlist',
-      name: 'PositionList',
-      component: (resolve)=>{
-        require([`@/components/pages/PositionList`], resolve)
-      }
-    },
     //求职列表
     {
       path: '/resume',
@@ -63,6 +55,14 @@ export default new Router({
       name: 'CompanyDetail',
       component: (resolve)=>{
         require(['@/components/pages/CompanyDetail'], resolve)
+      }
+    },
+    //招聘职位列表
+    {
+      path: '/positionlist',
+      name: 'PositionList',
+      component: (resolve)=>{
+        require(['@/components/pages/PositionList'], resolve)
       }
     },
     //职位详情页

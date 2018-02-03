@@ -30,4 +30,27 @@ store.registerModule('vux', {
   }
 })
 
+store.registerModule('search', {
+  state: {
+    typeVal: '找工作',
+    searchList: [{},{}]
+  },
+  mutations: {
+    updateTypeVal (state, payload) {
+      state.typeVal = payload.type
+    },
+    updateSearchList (state, payload) {
+      state.searchList = payload.list
+    }
+  },
+  actions: {
+    updateTypeVal ({commit}, type) {
+      commit({type:'updateTypeVal',type:type})
+    },
+    updateSearchList ({commit}, List) {
+      commit({type:'updateSearchList',List:List})
+    }
+  }
+})
+
 export default store;

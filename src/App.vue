@@ -1,11 +1,6 @@
 <template>
   <div id="app">
     <loading v-model="isLoading"></loading>
-    <!-- <drawer
-      width="200px;"
-      :show.sync="false"
-      :drawer-style="{'background-color':'#35495e', width: '200px'}"
-    >侧边栏</drawer> -->
     <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px">
       <x-header
         style="position:absolute;top:0;left:0;width:100%;z-index:999"
@@ -79,6 +74,7 @@ export default {
     },
     title () {
       if (this.$route.path === '/') return '首页'
+      if (this.$route.path === '/search') return '搜索'
       if (this.$route.path === '/positionlist') return '职位列表'
       if (this.$route.path === '/resume') return '求职列表'
       if (this.$route.path === '/user') return '个人中心'
