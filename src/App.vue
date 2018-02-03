@@ -77,6 +77,8 @@ export default {
       if (this.$route.path === '/search') return '搜索'
       if (this.$route.path === '/positionlist') return '职位列表'
       if (this.$route.path === '/resume') return '求职列表'
+      if (this.$route.path === '/login') return '登录'
+      if (this.$route.path === '/register') return '注册'
       if (this.$route.path === '/user') return '个人中心'
       if (this.$route.path === '/posdetail') return '详情'
       // return this.componentName ? `Demo/${this.componentName}` : 'Demo/~~'

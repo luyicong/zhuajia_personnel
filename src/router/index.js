@@ -73,6 +73,21 @@ export default new Router({
         require(['@/components/pages/PositionDetail'], resolve)
       }
     },
+    //用户登录
+    {
+      path: '/login',
+      name: 'Login',
+      component: (resolve)=>{
+        require(['@/components/pages/Login'], resolve)
+      }
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: (resolve)=>{
+        require(['@/components/pages/Register'], resolve)
+      }
+    },
     //用户中心
     {
       path: '/user',
