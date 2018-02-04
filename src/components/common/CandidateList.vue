@@ -1,7 +1,7 @@
 <template>
   <div class="resume-list-components-wrap">
     <div class="resume-list">
-      <router-link tag="div"  class="list-item" v-for="(item,index) in 6" :key="index" :to="{ path: 'resumedetail', params: { id: 123 }}">
+      <router-link tag="div"  class="list-item" v-for="(item,index) in data" :key="index" :to="{ path: 'resumedetail', params: { id: 123 }}">
         <div class="item-top">
           <div class="top-left">
             <div class="left-img">
@@ -28,7 +28,7 @@
 </template>
 <script>
 export default {
-  name: "",
+  props: ['data'],
   data () {
     return {
       defaultImg:require('@/assets/img/no_photo_male.png')

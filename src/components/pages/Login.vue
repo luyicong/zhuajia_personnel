@@ -9,8 +9,9 @@
         <!-- </group> -->
       </div>
     </div>
-    <div style="margin:10px 10px 30px 10px">
-      <check-icon :value.sync="demo1">下次自动登录</check-icon>
+    <div style="margin:10px 10px 30px 10px;color:#999">
+      <check-icon :value.sync="isAutoLogin">下次自动登录</check-icon>
+      <router-link style="float:right;" tag="span" :to="{ path: '/resetPwd'}">忘记密码</router-link>
     </div>
     <box gap="10px 10px">
       <x-button type="primary">登录</x-button>
@@ -30,7 +31,7 @@ export default {
     CheckIcon
   },
   data: () => ({
-    demo1:true
+    isAutoLogin:true
   })
 }
 </script>
@@ -56,7 +57,7 @@ export default {
   line-height: 40px;
   font-weight: 600;
   color: #666;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 1px solid #ddd;
   /* text-indent: 15px; */
   text-align: center;
 }

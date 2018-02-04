@@ -1,14 +1,16 @@
 <template>
-  <div id="register-wrap">
+  <div class="register-wrap">
 
   </div>
 </template>
 <script>
 export default {
   name: "",
-  data: () => ({
-
-  })
+  data () {
+    return {
+      
+    }
+  }
 }
 </script>
 <style scoped>

@@ -15,7 +15,7 @@
       <transition
       @after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')"
       :name="viewTransition" :css="!!direction">
-          <router-view></router-view>
+          <router-view class="router-view"></router-view>
       </transition>
       <tabbar style="position:fixed;max-width:540px;">
         <tabbar-item :selected="$route.path === '/'" link="/">
@@ -108,6 +108,8 @@ export default {
 
 <style lang="less">
 @import '~vux/src/styles/reset.less';
+@import '~vux/src/styles/1px.less';
+@import '~vux/src/styles/tap.less';
 html,body{
   font-family: Helvetica;
   // font-size: 62.5%;
@@ -126,6 +128,11 @@ body {
   height:100%;
   /*padding-top:46px;*/
   box-sizing:border-box;
+}
+
+.router-view {
+  width: 100%;
+  top: 46px;
 }
 .vux-pop-out-enter-active,
 .vux-pop-out-leave-active,

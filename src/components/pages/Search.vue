@@ -54,6 +54,7 @@ import CandidateList from '../common/CandidateList'
 import ComList from '../common/ComList'
 
 import { mapState , mapMutations , mapActions} from 'vuex'
+
 export default {
   components:{
     Search,
