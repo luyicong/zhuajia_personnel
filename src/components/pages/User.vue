@@ -15,20 +15,28 @@
         <li>设置</li>
       </ul> -->
       <group>
+        <cell :title="`我的简历`" :link="{path:'/storeresume'}"></cell>
         <cell :title="`投递记录`" :link="{path:'/demo'}"></cell>
-        <cell :title="`我的收藏`" :link="{path:'/demo'}"></cell>
-        <cell :title="`浏览记录`" link="{path:'/demo'}"></cell>
+        <cell :title="`我的收藏`" :link="{path:'/collectionpage'}"></cell>
+        <!-- <cell :title="`浏览记录`" :link="{path:'/demo'}"></cell> -->
+        <cell :title="`修改密码`" :link="{path:'/updatepwd'}"></cell>
+        <cell :title="`个人资料`" :link="{path:'/userinfo'}"></cell>
         <cell :title="`设置`" :link="{path:'/demo'}"></cell>
       </group>
+      <box gap="20px 10px">
+        <x-button type="warn">退出登录</x-button>
+      </box>
     </div>
   </div>
 </template>
 <script>
-import { Group , Cell } from 'vux'
+import { Group , Cell , XButton, Box,} from 'vux'
   export default {
     components: {
       Group,
-      Cell
+      Cell,
+      XButton,
+      Box
     },
     data () {
       return {

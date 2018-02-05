@@ -1,36 +1,37 @@
 <template>
-  <div class="jobs-list-wrap">
+  <div class="user-collection-page">
     <ul class="jobs-list">
-      <router-link tag="li" v-for="(item,index) in data" :key="index" :to="{ path: 'posdetail', params: { id: 123 }}">
+      <router-link tag="li" v-for="(item,index) in 5" :key="index" :to="{ path: 'posdetail', params: { id: 123 }}">
         <div class="left-info">
           <p class="job-name">建筑设计师{{index}}</p>
-          <p><span class="salary">7k-10k/月</span><span>学历不限/1-3年/年龄不限</span></p>
           <p>广西一棵树装饰工程有限责任公司</p>
+          <p class="time">收藏日期：2018.02.05</p>
         </div>
         <div class="right-info">
-          <p>19小时前</p>
-          <span>立即申请</span>
+          <span :class="index>2?'isDelivery':''">{{index>2?'已投递':'未投递'}}</span>
         </div>
       </router-link>
     </ul>
   </div>
 </template>
 <script>
+import JobList from '../common/JobList'
 export default {
-  props: {
-    data: {
-      type: Array,
-      default: arr => []
-    }
+  components: {
+    JobList
   },
   data () {
     return {
-
+        List:[{},{}]
     }
   }
 }
 </script>
-<style scoped>
+<style lang="less" scoped>
+.user-collection-page{
+  width: 100%;
+  background:#fff;
+}
 .jobs-list{
   width: 100%;
   overflow: hidden;
@@ -63,19 +64,10 @@ export default {
 .left-info .job-name{
   color: #333;
 }
-
-.right-info p{
-  height: 40px;
-  color: #ff552e;
-}
 .right-info span{
-  display: inline-block;
-  padding:0 10px;
-  text-align: center;
-  border-radius: 14px;
-  font-size: 12px;
-  border: 2px solid #ff552e;
-  color: #ff552e;
-  /* float: left; */
+  color: #009ee5;
+}
+.right-info .isDelivery{
+  color: red;
 }
 </style>

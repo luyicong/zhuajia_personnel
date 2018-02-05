@@ -1,19 +1,9 @@
 <template>
   <div class="jobs-list-page">
-      <!-- <ul class="job-list">
-        <router-link tag="li" v-for="(item,index) in 15" :key="index" :to="{ path: 'posdetail', params: { id: 123 }}">
-          <div class="left-info">
-            <p class="job-name">建筑设计师{{index}}</p>
-            <p><span>学历不限</span>/<span>1-3年工作经验</span>/年龄不限</p>
-            <p>广西某某建筑工程有限公司</p>
-          </div>
-          <div class="right-info">
-            <p class="salary">5k-10k/月</p>
-            <p>2017-01-31</p>
-            <p>南宁市/青秀区</p>
-          </div>
-        </router-link>
-      </ul> -->
+      <div class="cate">
+        当前在<em>建筑设计类</em>分类下
+        <x-icon class="ios-close" type="ios-close" size="22"></x-icon>
+      </div>
       <job-list :data="jobList"></job-list>
   </div>
 </template>
@@ -40,6 +30,33 @@ export default {
 <style scoped>
 .jobs-list-page{
   background-color: #fff;
+}
+.cate{
+    width: 100%;
+    height: 36px;
+    line-height: 36px;
+    background-color: #F7F7FA;
+    padding:0 10px;
+    font-size: 15px;
+    box-sizing: border-box;
+    position: relative;
+}
+.cate em{
+  color: #009ee5;
+  margin:0 2px;
+  font-style: normal;
+}
+/* .cate span{
+  width: 60px;
+  float: right;
+  text-align: left;
+  position: relative;
+} */
+.cate .ios-close{
+  fill:#999;
+  position: absolute;
+  top: 6px;
+  right: 5px;
 }
 /* .job-list{
   width: 100%;

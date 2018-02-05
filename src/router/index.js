@@ -95,6 +95,38 @@ export default new Router({
       component: (resolve)=>{
         require(['@/components/pages/User'], resolve)
       }
+    },
+    //用户个人信息
+    {
+      path: '/userinfo',
+      name: 'UserInfo',
+      component: (resolve)=>{
+        require(['@/components/pages/UserInfo'], resolve)
+      }
+    },
+    //修改密码
+    {
+      path: '/updatepwd',
+      name: 'UpdatePwd',
+      component: (resolve)=>{
+        require(['@/components/pages/UpdatePwd'], resolve)
+      }
+    },
+    //我的收藏/职位收藏
+    {
+      path: '/collectionpage',
+      name: 'CollectionPage',
+      component: (resolve)=>{
+        require(['@/components/pages/CollectionPage'], resolve)
+      }
+    },
+    //创建/修改 简历
+    {
+      path: '/storeresume',
+      name: 'StoreResume',
+      component: (resolve)=>{
+        require(['@/components/pages/StoreResume'], resolve)
+      }
     }
   ]
 })

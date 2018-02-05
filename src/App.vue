@@ -99,6 +99,12 @@ export default {
         case '/user':
           return '个人中心'
           break;
+        case '/userinfo':
+          return '个人资料'
+          break;
+          case '/collectionpage':
+            return '我的收藏'
+            break;
         case '/posdetail':
           return '详情'
           break;
@@ -107,6 +113,9 @@ export default {
           break;
         case '/resumedetail':
           return '简历详情页'
+          break;
+        case '/storeresume':
+          return '简历管理'
           break;
       }
     },
