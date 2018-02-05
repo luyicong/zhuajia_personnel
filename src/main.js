@@ -8,6 +8,8 @@ import router from './router'
 
 import store from './store'
 
+import './assets/font/iconfont.css'
+
 FastClick.attach(document.body)
 
 import { BusPlugin } from 'vux'

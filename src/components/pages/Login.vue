@@ -15,7 +15,7 @@
     </div>
     <box gap="10px 10px">
       <x-button type="primary">登录</x-button>
-      <x-button>立即注册</x-button>
+      <x-button :link="'/register'">立即注册</x-button>
     </box>
   </div>
 </template>

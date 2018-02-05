@@ -7,17 +7,17 @@
       </div>
       <div class="search-input-wrap">
          <search
-         @on-result-click="resultClick"
-         @on-change="getResult"
-         @on-submit="onSubmit"
-         @on-focus="onFocus"
-         @on-cancel="onCancel"
-         :results="results"
-         v-model="keyword"
-         position="absolute"
-        auto-scroll-to-top top="46px"
-         ref="search"
-         ></search>
+           @on-result-click="resultClick"
+           @on-change="getResult"
+           @on-submit="onSubmit"
+           @on-focus="onFocus"
+           @on-cancel="onCancel"
+           :results="results"
+           v-model="keyword"
+           position="absolute"
+          auto-scroll-to-top top="46px"
+           ref="search"
+           ></search>
       </div>
     </div>
     <div class="search-result-list">
@@ -43,7 +43,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { Search , XInput , PopupHeader, Popup, Group , Cell , Radio ,TransferDom} from 'vux'
 //工作列表
@@ -139,12 +138,10 @@ export default {
           case '找人才':
             // this.searchList = [{},{},{},{},{},{}]
             this.updateSearchList({list:[{},{},{},{},{},{}]});
-
             break;
           case '找企业':
             // this.searchList = [{},{},{},{},{},{},{},{},{},{},{}]
             this.updateSearchList({list:[{},{},{},{},{},{},{},{},{},{},{}]});
-
             break;
        }
       // this.companyList = [{},{},{},{},{},{},{},{},{},{},{}]
@@ -160,7 +157,11 @@ export default {
      document.querySelector('.vux-search-box').style.width = 'auto'
      document.querySelector('.vux-search_show').style.left = 0
    }
-  }
+ },
+ destroyed() {
+   //do something after destroying vue instance
+   this.updateSearchList({list:[]});
+ }
 }
 function getResult (val) {
   let rs = []

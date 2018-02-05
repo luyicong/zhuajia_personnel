@@ -33,7 +33,7 @@ store.registerModule('vux', {
 store.registerModule('search', {
   state: {
     typeVal: '找工作',
-    searchList: [{},{}]
+    searchList: []
   },
   mutations: {
     updateTypeVal (state, payload) {

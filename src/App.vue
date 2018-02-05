@@ -20,18 +20,22 @@
       <tabbar style="position:fixed;max-width:540px;">
         <tabbar-item :selected="$route.path === '/'" link="/">
           <!-- <img slot="icon" src="../assets/demo/icon_nav_button.png"> -->
+          <i slot="icon" class="iconfont icon-home"></i>
           <span slot="label">首页</span>
         </tabbar-item>
         <tabbar-item :selected="$route.path === '/positionlist'" link="/positionlist">
           <!-- <img slot="icon" src="../assets/demo/icon_nav_msg.png"> -->
+          <i slot="icon" class="iconfont icon-zhaopin"></i>
           <span slot="label">热门招聘</span>
         </tabbar-item>
         <tabbar-item :selected="$route.path === '/resume'" link="/resume">
           <!-- <img slot="icon" src="../assets/demo/icon_nav_article.png"> -->
+          <i slot="icon" class="iconfont icon-rencaizhongxin"></i>
           <span slot="label">求职信息</span>
         </tabbar-item>
         <tabbar-item :selected="$route.path === '/user'" link="/user">
           <!-- <img slot="icon" src="../assets/demo/icon_nav_article.png"> -->
+          <i slot="icon" class="iconfont icon-jobtitle"></i>
           <span slot="label">个人中心</span>
         </tabbar-item>
       </tabbar>
@@ -73,15 +77,38 @@ export default {
       return 'vux-pop-' + (this.direction === 'forward' ? 'in' : 'out')
     },
     title () {
-      if (this.$route.path === '/') return '首页'
-      if (this.$route.path === '/search') return '搜索'
-      if (this.$route.path === '/positionlist') return '职位列表'
-      if (this.$route.path === '/resume') return '求职列表'
-      if (this.$route.path === '/login') return '登录'
-      if (this.$route.path === '/register') return '注册'
-      if (this.$route.path === '/user') return '个人中心'
-      if (this.$route.path === '/posdetail') return '详情'
-      // return this.componentName ? `Demo/${this.componentName}` : 'Demo/~~'
+      switch (this.$route.path) {
+        case '/':
+          return '首页'
+          break;
+        case '/search':
+          return '搜索'
+          break;
+        case '/positionlist':
+          return '职位列表'
+          break;
+        case '/resume':
+          return '求职列表'
+          break;
+        case '/login':
+          return '登录'
+          break;
+        case '/register':
+          return '注册'
+          break;
+        case '/user':
+          return '个人中心'
+          break;
+        case '/posdetail':
+          return '详情'
+          break;
+        case '/companydetail':
+          return '企业简介页'
+          break;
+        case '/resumedetail':
+          return '简历详情页'
+          break;
+      }
     },
   },
   methods: {

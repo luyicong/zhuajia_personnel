@@ -22,13 +22,13 @@
         <div class="common-moudle-list-wrap">
           <flexbox :gutter="0" wrap="wrap" class="cate-list">
                 <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程咨询类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程咨询类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程咨询类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程咨询类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程咨询类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程咨询类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程咨询类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程咨询类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>勘察设计类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>建筑设计类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程造价类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程监理类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程施工类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>建筑技工类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>建筑BIM类</p></div></flexbox-item>
           </flexbox>
         </div>
         <div class="opt-btn">
