@@ -21,7 +21,7 @@
 
         </div>
       </div>
-      <div class="company-info detail-moudle-item">
+      <router-link tag="div" class="company-info detail-moudle-item" :to="{ path: 'companydetail', params: { id: 123 }}">
         <div class="company-img">
           <img :src="defaultImg" alt="" width="60" height="60">
         </div>
@@ -34,7 +34,7 @@
           <p>设计施工一条龙服务</p>
         </div>
         <p class="right-icon" ><x-icon type="ios-arrow-right" size="20"></x-icon></p>
-      </div>
+      </router-link>
       <div class="position-requirement detail-moudle-item">
         <div class="moudle-item-title"><h3>职位描述</h3></div>
         <div class="pos-requirement-desc">
