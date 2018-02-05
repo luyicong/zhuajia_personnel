@@ -21,7 +21,6 @@
         <!-- <cell :title="`浏览记录`" :link="{path:'/demo'}"></cell> -->
         <cell :title="`修改密码`" :link="{path:'/updatepwd'}"></cell>
         <cell :title="`个人资料`" :link="{path:'/userinfo'}"></cell>
-        <cell :title="`设置`" :link="{path:'/demo'}"></cell>
       </group>
       <box gap="20px 10px">
         <x-button type="warn">退出登录</x-button>
@@ -45,7 +44,7 @@ import { Group , Cell , XButton, Box,} from 'vux'
     }
   }
 </script>
-<style scoped>
+<style lang="less" scoped>
 .user,.user-header,.user-center-nav{
   width: 100%;
   overflow: hidden;
@@ -58,13 +57,14 @@ import { Group , Cell , XButton, Box,} from 'vux'
   background: -o-linear-gradient(210deg, #efcc4c,#ff5716); /* Opera 11.1 - 12.0 */
   background: -moz-linear-gradient(210deg, #efcc4c,#ff5716); /* Firefox 3.6 - 15 */
   background: linear-gradient(210deg, #efcc4c,#ff5716); /* 标准的语法（必须放在最后） */
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 .user-center-nav{
   /* background-color: #fff; */
 }
-.user-center-nav{
+.user-center-nav .weui-cells{
     /* margin-top: 10px; */
+    font-size:15px;
 }
 .user-center-nav .weui-cells,.user-center-nav .vux-no-group-title{
   margin-top: 0;
@@ -74,7 +74,7 @@ import { Group , Cell , XButton, Box,} from 'vux'
   height:80px;
   border-radius: 40px;
   overflow: hidden;
-  margin:20px auto 10px auto;
+  margin:15px auto 10px auto;
 }
 .user-head-img img{
   width: 100%;

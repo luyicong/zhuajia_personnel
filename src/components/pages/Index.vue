@@ -21,14 +21,14 @@
         <div class="common-moudle-title">职位分类<router-link tag="span" :to="{ path:'catelist'}">全部&nbsp》</router-link></div>
         <div class="common-moudle-list-wrap">
           <flexbox :gutter="0" wrap="wrap" class="cate-list">
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程咨询类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>勘察设计类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>建筑设计类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程造价类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程监理类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>工程施工类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>建筑技工类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span></span><p>建筑BIM类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span>咨询</span><p>工程咨询类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span>勘察</span><p>勘察设计类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span>建筑</span><p>建筑设计类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span>造价</span><p>工程造价类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span>监理</span><p>工程监理类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span>施工</span><p>工程施工类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span>技工</span><p>建筑技工类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span>BIM</span><p>建筑BIM类</p></div></flexbox-item>
           </flexbox>
         </div>
         <div class="opt-btn">
@@ -284,12 +284,39 @@ export default {
   box-sizing: border-box;
   min-height: 160px;
 }
-.cate-list{
-
-}
 .cate-list .cate-item{
   text-align: center;
   margin-bottom: 10px;
+}
+.cate-list > div:nth-child(1) .cate-item span{
+  background-color: #FF5151;
+}
+.cate-list > div:nth-child(2) .cate-item span{
+  background-color: #998C1D;
+}
+.cate-list > div:nth-child(3) .cate-item span{
+  background-color: #0DC2C9;
+}
+.cate-list > div:nth-child(4) .cate-item span{
+  background-color: #0DBB5F;
+}
+.cate-list > div:nth-child(5) .cate-item span{
+  background-color: #7598E9;
+}
+.cate-list > div:nth-child(6) .cate-item span{
+  background-color: #C88B5F;
+}
+.cate-list > div:nth-child(7) .cate-item span{
+  background-color: #7BCB82;
+}
+.cate-list > div:nth-child(8) .cate-item span{
+  background-color: #B7B510;
+}
+.cate-list > div:nth-child(9) .cate-item span{
+  background-color: #FF5151;
+}
+.cate-list > div:nth-child(10) .cate-item span{
+  background-color: #FF5151;
 }
 .cate-list .cate-item span{
   display: inline-block;
@@ -298,6 +325,10 @@ export default {
   background-color: #ddd;
   border-radius: 26px;
   overflow: hidden;
+  line-height: 52px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
 }
 .cate-list .cate-item p{
   font-size: 14px;

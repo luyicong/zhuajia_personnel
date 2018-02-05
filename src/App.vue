@@ -1,45 +1,45 @@
 <template>
   <div id="app">
     <loading v-model="isLoading"></loading>
+    <x-header
+      style="position:absolute;top:0;left:0;width:100%;z-index:999"
+      :left-options="leftOptions"
+      :title="title"
+      :transition="headerTransition"
+    >
+    <!-- <span v-if="$route.path === '/'" slot="overwrite-left" @click="drawerVisibility = !drawerVisibility">
+      <x-icon type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;left:-3px;"></x-icon>
+    </span> -->
+    </x-header>
     <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px">
-      <x-header
-        style="position:absolute;top:0;left:0;width:100%;z-index:999"
-        :left-options="leftOptions"
-        :title="title"
-        :transition="headerTransition"
-      >
-      <!-- <span v-if="$route.path === '/'" slot="overwrite-left" @click="drawerVisibility = !drawerVisibility">
-        <x-icon type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;left:-3px;"></x-icon>
-      </span> -->
-      </x-header>
       <transition
       @after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')"
       :name="viewTransition" :css="!!direction">
           <router-view class="router-view"></router-view>
       </transition>
-      <tabbar style="position:fixed;max-width:540px;">
-        <tabbar-item :selected="$route.path === '/'" link="/">
-          <!-- <img slot="icon" src="../assets/demo/icon_nav_button.png"> -->
-          <i slot="icon" class="iconfont icon-home"></i>
-          <span slot="label">首页</span>
-        </tabbar-item>
-        <tabbar-item :selected="$route.path === '/positionlist'" link="/positionlist">
-          <!-- <img slot="icon" src="../assets/demo/icon_nav_msg.png"> -->
-          <i slot="icon" class="iconfont icon-zhaopin"></i>
-          <span slot="label">热门招聘</span>
-        </tabbar-item>
-        <tabbar-item :selected="$route.path === '/resume'" link="/resume">
-          <!-- <img slot="icon" src="../assets/demo/icon_nav_article.png"> -->
-          <i slot="icon" class="iconfont icon-rencaizhongxin"></i>
-          <span slot="label">求职信息</span>
-        </tabbar-item>
-        <tabbar-item :selected="$route.path === '/user'" link="/user">
-          <!-- <img slot="icon" src="../assets/demo/icon_nav_article.png"> -->
-          <i slot="icon" class="iconfont icon-jobtitle"></i>
-          <span slot="label">个人中心</span>
-        </tabbar-item>
-      </tabbar>
     </view-box>
+    <tabbar style="position:fixed;max-width:540px;">
+      <tabbar-item :selected="$route.path === '/'" link="/">
+        <!-- <img slot="icon" src="../assets/demo/icon_nav_button.png"> -->
+        <i slot="icon" class="iconfont icon-home"></i>
+        <span slot="label">首页</span>
+      </tabbar-item>
+      <tabbar-item :selected="$route.path === '/positionlist'" link="/positionlist">
+        <!-- <img slot="icon" src="../assets/demo/icon_nav_msg.png"> -->
+        <i slot="icon" class="iconfont icon-zhaopin"></i>
+        <span slot="label">热门招聘</span>
+      </tabbar-item>
+      <tabbar-item :selected="$route.path === '/resume'" link="/resume">
+        <!-- <img slot="icon" src="../assets/demo/icon_nav_article.png"> -->
+        <i slot="icon" class="iconfont icon-rencaizhongxin"></i>
+        <span slot="label">求职信息</span>
+      </tabbar-item>
+      <tabbar-item :selected="$route.path === '/user'" link="/user">
+        <!-- <img slot="icon" src="../assets/demo/icon_nav_article.png"> -->
+        <i slot="icon" class="iconfont icon-jobtitle"></i>
+        <span slot="label">个人中心</span>
+      </tabbar-item>
+    </tabbar>
   </div>
 </template>
 
