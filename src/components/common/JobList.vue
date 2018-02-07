@@ -1,11 +1,11 @@
 <template>
   <div class="jobs-list-wrap">
     <ul class="jobs-list">
-      <router-link tag="li" v-for="(item,index) in data" :key="index" :to="{ path: 'posdetail', params: { id: 123 }}">
+      <router-link tag="li" v-for="(item,index) in data" :key="index" :to="{ path: 'posdetail', params: { id: item.pos_id }}">
         <div class="left-info">
-          <p class="job-name">建筑设计师{{index}}</p>
-          <p><span class="salary">7k-10k/月</span><span>学历不限/1-3年/年龄不限</span></p>
-          <p>广西一棵树装饰工程有限责任公司</p>
+          <p class="job-name">{{item.pos_name}}</p>
+          <p><span class="salary">{{item.pos_salary}}</span><span>{{item.pos_edu}}/{{item.pos_exp}}/{{item.pos_age}}</span></p>
+          <p>{{item.comp_name}}</p>
         </div>
         <div class="right-info">
           <p>19小时前</p>

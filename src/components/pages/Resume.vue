@@ -5,6 +5,7 @@
 </template>
 <script>
 import CandidateList from '../common/CandidateList'
+import Api from '../../api'
 export default {
   components: {
     CandidateList
@@ -12,8 +13,17 @@ export default {
   data () {
     return {
       defaultImg:require('@/assets/img/no_photo_male.png'),
-      resumeList:[{},{},{},{},{},{},{},{},{},{},{},{}]
+      resumeList:[]
     }
+  },
+  beforeCreate() {
+    //do something before creating vue instance
+    Api.getResumeList().then((res)=>{
+      console.log(res.data)
+      if(res.status == 1){
+        this.resumeList = res.data
+      }
+    })
   }
 }
 </script>

@@ -1,10 +1,29 @@
 import axios from 'axios'
 
-// const baseUrl = 'http://blog.yoho167.com/api'
+const baseUrl = 'http://www.mytalent.com/api/v1'
 
 export default {
-  getIndexPositionList(pageNo=1,pageSize=20) {
-    return axios.get(`/api/listmore.json?pageNo=${pageNo}&pageSize=${pageSize}`).then((res)=>{
+  //获取首页数据
+  getIndexData() {
+    return axios.get(`${baseUrl}/index`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //获取招聘列表页数据
+  getPositionList() {
+    return axios.get(`${baseUrl}/position`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //获取企业列表页数据
+  getCompanyList() {
+    return axios.get(`${baseUrl}/company`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //人才列表
+  getResumeList() {
+    return axios.get(`${baseUrl}/resume`).then((res)=>{
       return Promise.resolve(res.data)
     })
   }

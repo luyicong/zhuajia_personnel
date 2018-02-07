@@ -1,18 +1,18 @@
 <template>
   <div class="resume-list-components-wrap">
     <div class="resume-list">
-      <router-link tag="div"  class="list-item" v-for="(item,index) in data" :key="index" :to="{ path: 'resumedetail', params: { id: 123 }}">
+      <router-link tag="div"  class="list-item" v-for="(item,index) in data" :key="item.id" :to="{ path: 'resumedetail', params: { id: item.id }}">
         <div class="item-top">
           <div class="top-left">
             <div class="left-img">
               <img :src="defaultImg" alt="">
             </div>
             <div class="left-info">
-              <p class="user-name">黄小明{{index}}</p>
+              <p class="user-name">{{item.realname}}</p>
               <p>
-                <span>男</span>|<span>21岁</span>|<span>大专</span>|<span>不限</span>
+                <span>{{item.sex}}</span>|<span>{{item.age}}</span>|<span>{{item.maxedu}}</span>|<span>不限</span>
               </p>
-              <p>意向地区：广西南宁</p>
+              <p>意向地区：{{item.workarea}}</p>
             </div>
           </div>
           <div class="top-right">
@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="item-bottom">
-          意向职位：设计师,设计助理,造价员
+          意向职位：{{item.position}}
         </div>
       </router-link>
     </div>

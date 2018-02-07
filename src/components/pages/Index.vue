@@ -21,14 +21,16 @@
         <div class="common-moudle-title">职位分类<router-link tag="span" :to="{ path:'catelist'}">全部&nbsp》</router-link></div>
         <div class="common-moudle-list-wrap">
           <flexbox :gutter="0" wrap="wrap" class="cate-list">
-                <flexbox-item :span="1/4"><div class="cate-item"><span>咨询</span><p>工程咨询类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span>勘察</span><p>勘察设计类</p></div></flexbox-item>
+                <flexbox-item v-for="item in cateList" :key="item.cate_id" :span="1/4">
+                  <div class="cate-item"><span>{{item.cate_name.slice(2,4)}}</span><p>{{item.cate_name}}</p></div>
+                </flexbox-item>
+                <!-- <flexbox-item :span="1/4"><div class="cate-item"><span>勘察</span><p>勘察设计类</p></div></flexbox-item>
                 <flexbox-item :span="1/4"><div class="cate-item"><span>建筑</span><p>建筑设计类</p></div></flexbox-item>
                 <flexbox-item :span="1/4"><div class="cate-item"><span>造价</span><p>工程造价类</p></div></flexbox-item>
                 <flexbox-item :span="1/4"><div class="cate-item"><span>监理</span><p>工程监理类</p></div></flexbox-item>
                 <flexbox-item :span="1/4"><div class="cate-item"><span>施工</span><p>工程施工类</p></div></flexbox-item>
                 <flexbox-item :span="1/4"><div class="cate-item"><span>技工</span><p>建筑技工类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span>BIM</span><p>建筑BIM类</p></div></flexbox-item>
+                <flexbox-item :span="1/4"><div class="cate-item"><span>BIM</span><p>建筑BIM类</p></div></flexbox-item> -->
           </flexbox>
         </div>
         <div class="opt-btn">
@@ -58,19 +60,19 @@
         <div class="common-moudle-title">建筑求职信息<router-link tag="span" :to="{ path:'resume'}">全部&nbsp》</router-link></div>
         <div class="common-moudle-list-wrap" style="padding:0">
           <ul class="candidate-list">
-            <router-link tag="li" v-for="(item,index) in 4" :key="index" :to="{ path: 'resumedetail', params: { id: 123 }}">
+            <router-link tag="li" v-for="(item,index) in resumeList" :key="item.id" :to="{ path: 'resumedetail', params: { id: item.id }}">
               <div class="user-info">
                 <div class="head-img">
                   <img :src="defaultImg" alt="">
                 </div>
                 <div class="desc">
-                  <p class="user-name">黄小明</p>
-                  <p>男|本科|不限</p>
-                  <p class="creat-time">2017.0130</p>
+                  <p class="user-name">{{item.realname}}</p>
+                  <p>{{item.sex}}|{{item.maxedu}}|{{item.workexp}}</p>
+                  <p class="creat-time">2017.01.30</p>
                 </div>
               </div>
               <div class="job-info">
-                <div class="job-want">求职意向：设计助理</div>
+                <div class="job-want">求职意向：{{item.position}}</div>
                 <div class="job-opt">
                   <p><span href="javascript:;">收藏</span></p>
                   <p><span href="javascript:;">查看</span></p>
@@ -92,7 +94,7 @@
       <div class="common-moudle-wrap">
         <div class="common-moudle-title">建筑招聘信息<router-link tag="span" :to="{ path:'positionlist'}">全部&nbsp》</router-link></div>
         <div class="common-moudle-list-wrap" style="padding:0">
-          <job-list :data="jobList"></job-list>
+          <job-list :data="positionList"></job-list>
         </div>
       </div>
       <!--hots-jobs/end-->
@@ -122,8 +124,13 @@ export default {
     return {
       defaultImg:require('@/assets/img/no_photo_male.png'),
       _index:0,
-      jobList:[{},{},{},{},{},{},{},{},{},{}],
-      companyList:[{},{},{},{}],
+      indexData:{},
+      cateList:[],
+      companyList:[],
+      resumeList:[],
+      positionList:[],
+      // jobList:[{},{},{},{},{},{},{},{},{},{}],
+      // companyList:[{},{},{},{}],
       bannerList:[
         {
           url: 'www.baidu.com',
@@ -147,9 +154,17 @@ export default {
   },
   beforeCreate() {
     //do something before creating vue instance
-    // Api.getIndexPositionList(this.pageNo,20).then((res)=>{
-    //   this.List = res.content.data.page.result
-    // })
+    Api.getIndexData().then((res)=>{
+      console.log(res)
+      if(res.status == 1){
+        this.indexData = res.data
+        this.cateList = res.data.cateList
+        this.companyList = res.data.companyList.data
+        this.resumeList = res.data.resumeList
+        this.positionList = res.data.positionList.data
+      }
+
+    })
   },
   methods: {
     // ...mapMutations({updateLoading:'UPDATE_LOADING'}),

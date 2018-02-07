@@ -4,19 +4,28 @@
         当前在<em>建筑设计类</em>分类下
         <x-icon class="ios-close" type="ios-close" size="22"></x-icon>
       </div>
-      <job-list :data="jobList"></job-list>
+      <job-list :data="positionList"></job-list>
   </div>
 </template>
 <script>
 import JobList from '../common/JobList'
+import Api from '../../api'
 export default {
   components: {
     JobList
   },
   data () {
     return {
-      jobList:[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]
+      positionList:[]
     }
+  },
+  beforeCreate() {
+    //do something before creating vue instance
+    Api.getPositionList().then((res)=>{
+      if(res.status == 1){
+        this.positionList = res.data.data
+      }
+    })
   },
   created() {
     //do something after creating vue instance
