@@ -68,7 +68,7 @@
                 <div class="desc">
                   <p class="user-name">{{item.realname}}</p>
                   <p>{{item.sex}}|{{item.maxedu}}|{{item.workexp}}</p>
-                  <p class="creat-time">2017.01.30</p>
+                  <p class="creat-time">{{ item.update_time }}</p>
                 </div>
               </div>
               <div class="job-info">
@@ -161,7 +161,7 @@ export default {
         this.cateList = res.data.cateList
         this.companyList = res.data.companyList.data
         this.resumeList = res.data.resumeList
-        this.positionList = res.data.positionList.data
+        this.positionList = res.data.positionList
       }
 
     })

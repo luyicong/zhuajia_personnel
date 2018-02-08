@@ -5,40 +5,75 @@
         <x-icon class="ios-close" type="ios-close" size="22"></x-icon>
       </div>
       <job-list :data="positionList"></job-list>
+      <loading-more :isLoad="isLoad" :text="text" @loadMore="getList()"></loading-more>
+      <toast v-model="isErr" type="text" width="15em" :time="1000" is-show-mask :text="err" :position="'middle'">{{ err }}</toast>
   </div>
 </template>
 <script>
 import JobList from '../common/JobList'
+import loadingMore from '../common/loadingMore'
+import { Toast } from 'vux'
 import Api from '../../api'
 export default {
   components: {
-    JobList
+    JobList,
+    loadingMore,
+    Toast
   },
   data () {
     return {
-      positionList:[]
+      positionList:[],
+      isLoad:false,
+      nowPage:1,
+      text:'加载中',
+      isErr:false,
+      err:'网络出错,稍后重试！'
     }
   },
   beforeCreate() {
-    //do something before creating vue instance
     Api.getPositionList().then((res)=>{
       if(res.status == 1){
-        this.positionList = res.data.data
+        this.positionList = res.data
       }
     })
   },
+  computed:{
+    isShowErrToast() {
+      return this.err?true:false
+    }
+  },
   created() {
-    //do something after creating vue instance
-    console.log('121212')
+    // console.log('121212')
   },
   methods: {
-
+    getList() {
+      if(this.text != '加载中') return false
+      this.isLoad = true
+      this.nowPage++
+      // console.log(this.nowPage)
+      Api.getPositionList('',this.nowPage).then((res)=>{
+        if(res.status == 1){
+          setTimeout(()=>{
+            if(res.data.length){
+              this.positionList = this.positionList.concat(res.data)
+            }else{
+              this.text = '已全部加载完'
+            }
+            this.isLoad = false
+          },600)
+        }else{
+          this.isErr = true
+        }
+      }).catch((err)=>{
+        this.isErr = true
+      })
+    }
   }
 }
 </script>
 <style scoped>
 .jobs-list-page{
-  background-color: #fff;
+  /* background-color: #fff; */
 }
 .cate{
     width: 100%;

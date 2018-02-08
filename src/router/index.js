@@ -27,7 +27,7 @@ export default new Router({
     },
     //求职详情页
     {
-      path: '/resumedetail',
+      path: '/resumedetail/:id',
       name: 'ResumeDetail',
       component: (resolve)=>{
         require(['@/components/pages/ResumeDetail'], resolve)
@@ -51,7 +51,7 @@ export default new Router({
     },
     //企业详情页
     {
-      path: '/companydetail',
+      path: '/companydetail/:id',
       name: 'CompanyDetail',
       component: (resolve)=>{
         require(['@/components/pages/CompanyDetail'], resolve)
@@ -67,8 +67,8 @@ export default new Router({
     },
     //职位详情页
     {
-      path: '/posdetail',
-      name: 'PositionDetail',
+      path: '/posdetail/:id',
+      name: 'posdetail',
       component: (resolve)=>{
         require(['@/components/pages/PositionDetail'], resolve)
       }

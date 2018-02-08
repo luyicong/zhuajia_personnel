@@ -10,8 +10,14 @@ export default {
     })
   },
   //获取招聘列表页数据
-  getPositionList() {
-    return axios.get(`${baseUrl}/position`).then((res)=>{
+  getPositionList(cate_id='',nowPage=1) {
+    return axios.get(`${baseUrl}/position?cate_id=${cate_id}&nowPage=${nowPage}`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //根据职位id获取职位详情
+  getPosDetailById(pos_id) {
+    return axios.get(`${baseUrl}/positionDetail/${pos_id}`).then((res)=>{
       return Promise.resolve(res.data)
     })
   },
@@ -21,9 +27,15 @@ export default {
       return Promise.resolve(res.data)
     })
   },
+  //获取企业详情
+  getCompanyDetailById(comp_id) {
+    return axios.get(`${baseUrl}/companyDetail/${comp_id}`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
   //人才列表
-  getResumeList() {
-    return axios.get(`${baseUrl}/resume`).then((res)=>{
+  getResumeList(nowPage=1) {
+    return axios.get(`${baseUrl}/resume?nowPage=${nowPage}`).then((res)=>{
       return Promise.resolve(res.data)
     })
   }

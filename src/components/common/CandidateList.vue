@@ -16,7 +16,7 @@
             </div>
           </div>
           <div class="top-right">
-            <p>3小时前</p>
+            <p>{{ item.update_time }}</p>
           </div>
         </div>
         <div class="item-bottom">

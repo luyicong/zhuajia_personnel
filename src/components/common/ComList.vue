@@ -1,10 +1,10 @@
 <template>
     <ul class="company-list">
-      <router-link tag="li" v-for="(item,index) in data" :key="index" :to="{ path: 'companydetail', params: { id: item.comp_id }}">
+      <router-link tag="li" v-for="(item,index) in data" :key="index" :to="{ name: 'CompanyDetail', params: { id: item.comp_id }}">
         <div class="img"><img :src="defaultImg" alt=""> </div>
         <div class="info">
           <h3>{{item.comp_name}}</h3>
-          <span>{{item.comp_type}}/{{item.comp_scale}}人</span><span>招聘职位<i>5</i>个</span>
+          <span>{{item.comp_type}}/{{item.comp_scale}}人</span><span>招聘职位<i>{{item.comp_pos_count}}</i>个</span>
         </div>
       </router-link>
     </ul>

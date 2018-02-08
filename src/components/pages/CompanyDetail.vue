@@ -65,6 +65,7 @@
 <script>
 import { Flexbox , FlexboxItem} from 'vux'
 import JobList from '../common/JobList'
+import Api from '../../api'
 export default {
   components: {
     Flexbox,
@@ -77,6 +78,12 @@ export default {
       defaultImg:require('@/assets/img/no_photo_male.png'),
       jobList:[{},{},{},{},{},{},{},{},{},{}]
     }
+  },
+  beforeCreate() {
+    //do something before creating vue instance
+    Api.getCompanyDetailById(this.$route.params.id).then((res)=>{
+      console.log(res.data)
+    })
   }
 }
 </script>

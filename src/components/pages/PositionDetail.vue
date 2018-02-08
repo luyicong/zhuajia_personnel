@@ -2,34 +2,31 @@
     <div id="position-detail">
       <div class="position-info detail-moudle-item">
         <div class="info-item position-name">
-          <h3>建筑设计师</h3>
+          <h3>{{detailInfo.pos_name}}</h3>
           <span><x-icon type="ios-heart-outline" size="18"></x-icon>收藏</span>
         </div>
-        <!-- <div class="update-time">
-          最近更新于：2018.02.01
-        </div> -->
         <div class="info-item desc">
           <flexbox :gutter="0" wrap="wrap" class="cate-list">
-                <flexbox-item :span="1/3"><p><span class="key">薪资：</span><span class="salary">7k-10k</span></p></flexbox-item>
-                <flexbox-item :span="1/3"><p><span class="key">地点：</span><span>广西南宁</span></p></flexbox-item>
-                <flexbox-item :span="1/3"><p><span class="key">性别：</span><span>不限</span></p></flexbox-item>
-                <flexbox-item :span="1/3"><p><span class="key">学历：</span><span>不限</span></p></flexbox-item>
-                <flexbox-item :span="1/3"><p><span class="key">方式：</span><span>全职</span></p></flexbox-item>
-                <flexbox-item :span="1/3"><p><span class="key">经验：</span><span>1-2年</span></p></flexbox-item>
-                <flexbox-item :span="1/3"><p><span class="key">年龄：</span><span>不限</span></p></flexbox-item>
+                <flexbox-item :span="1/3"><p><span class="key">薪资：</span><span class="salary">{{detailInfo.pos_salary}}</span></p></flexbox-item>
+                <flexbox-item :span="1/3"><p><span class="key">地点：</span><span>{{detailInfo.work_address}}</span></p></flexbox-item>
+                <flexbox-item :span="1/3"><p><span class="key">性别：</span><span>{{detailInfo.pos_sex}}</span></p></flexbox-item>
+                <flexbox-item :span="1/3"><p><span class="key">学历：</span><span>{{detailInfo.pos_edu}}</span></p></flexbox-item>
+                <flexbox-item :span="1/3"><p><span class="key">性质：</span><span>{{detailInfo.pos_type}}</span></p></flexbox-item>
+                <flexbox-item :span="1/3"><p><span class="key">经验：</span><span>{{detailInfo.pos_exp}}</span></p></flexbox-item>
+                <flexbox-item :span="1/3"><p><span class="key">年龄：</span><span>{{detailInfo.pos_age}}</span></p></flexbox-item>
           </flexbox>
-
+          <p style="color:#999;">更新于：{{detailInfo.sendtime}}</p>
         </div>
       </div>
-      <router-link tag="div" class="company-info detail-moudle-item" :to="{ path: 'companydetail', params: { id: 123 }}">
+      <router-link tag="div" class="company-info detail-moudle-item" :to="{ name: 'CompanyDetail', params: { id: detailInfo.comp_id }}">
         <div class="company-img">
           <img :src="defaultImg" alt="" width="60" height="60">
         </div>
         <div class="company-desc">
-          <h3>广西某某某建筑工程有限公司</h3>
+          <h3>{{ detailInfo.comp_name }}</h3>
           <p>
-            <span>100-300人</span>
-            <span>民营</span>
+            <span>{{ detailInfo.comp_scale }}</span>
+            <span>{{ detailInfo.comp_type }}</span>
           </p>
           <p>设计施工一条龙服务</p>
         </div>
@@ -37,18 +34,14 @@
       </router-link>
       <div class="position-requirement detail-moudle-item">
         <div class="moudle-item-title"><h3>职位描述</h3></div>
-        <div class="pos-requirement-desc">
-          1、性别不限，30岁以下；<br>
-          2、专业不限，需精通电脑，熟悉3Dmax、 ps、视频制作、平面广告等，应届生亦可；<br>
-          3、具有团结合作、吃苦耐劳精神；<br>
-          4、周末双休，享正常节假日薪酬面议。
-        </div>
+        <div class="pos-requirement-desc" v-html="detailInfo.pos_desc"></div>
       </div>
       <div class="company-contact detail-moudle-item">
         <div class="moudle-item-title"><h3>联系方式</h3></div>
         <div class="company-contact-content">
-          <p>0771-38383388</p>
-          <p>广西南宁市青秀区南湖公园</p>
+          <p>{{ detailInfo.comp_phone }}</p>
+          <p class="email">{{ detailInfo.comp_email }}</p>
+          <p>{{ detailInfo.comp_address }}</p>
         </div>
         <div class="safe-tip">
           面试过程中，遇到用人单位收取费用请提高警惕
@@ -58,16 +51,29 @@
 </template>
 <script>
 import { Flexbox , FlexboxItem} from 'vux'
+
+import Api from '../../api'
+
 export default {
   components: {
     Flexbox,
     FlexboxItem
   },
-  name: "",
   data () {
     return  {
-      defaultImg:require('@/assets/img/no_photo_male.png')
+      defaultImg:require('@/assets/img/no_photo_male.png'),
+      detailInfo:{}
     }
+  },
+  beforeCreate() {
+    console.log(this.$route.params.id)
+    //do something before creating vue instance
+    Api.getPosDetailById(this.$route.params.id).then((res)=>{
+      if(res.status == 1){
+        this.detailInfo = res.data
+        console.log(res.data)
+      }
+    })
   }
 }
 </script>
@@ -136,7 +142,7 @@ export default {
 .desc p .salary{
   color: #ff552e;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
 }
 .company-info{
   padding:10px;
@@ -207,11 +213,15 @@ export default {
 }
 .company-contact-content p:first-child{
   background: url(../../assets/img/phone.png) no-repeat 0 center;
-  background-size: 18px 18px;
+  background-size: 20px 20px;
+}
+.company-contact-content p.email{
+  background: url(../../assets/img/email.png) no-repeat 0 center;
+  background-size: 20px 20px;
 }
 .company-contact-content p:last-child{
   background: url(../../assets/img/address.png) no-repeat 0 center;
-  background-size: 18px 18px;
+  background-size: 20px 20px;
 }
 .safe-tip{
     width: 88%;

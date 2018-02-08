@@ -1,14 +1,15 @@
 <template>
   <div class="jobs-list-wrap">
     <ul class="jobs-list">
-      <router-link tag="li" v-for="(item,index) in data" :key="index" :to="{ path: 'posdetail', params: { id: item.pos_id }}">
+      <router-link tag="li" v-for="(item,index) in data" :key="item.pos_id" :to="{ name: 'posdetail', params: { id: item.pos_id }}">
         <div class="left-info">
           <p class="job-name">{{item.pos_name}}</p>
-          <p><span class="salary">{{item.pos_salary}}</span><span>{{item.pos_edu}}/{{item.pos_exp}}/{{item.pos_age}}</span></p>
+          <!-- <p><span class="salary">{{item.pos_salary}}</span><span>{{item.pos_edu}}/{{item.pos_exp}}/{{item.pos_age}}</span></p> -->
+          <p><span class="salary">{{item.pos_salary}}</span><span>{{item.pos_edu}}/{{item.pos_exp}}</span></p>
           <p>{{item.comp_name}}</p>
         </div>
         <div class="right-info">
-          <p>19小时前</p>
+          <p>{{item.sendtime}}</p>
           <span>立即申请</span>
         </div>
       </router-link>
@@ -34,6 +35,7 @@ export default {
 .jobs-list{
   width: 100%;
   overflow: hidden;
+  background-color: #fff;
 }
 .jobs-list li{
   display: flex;
