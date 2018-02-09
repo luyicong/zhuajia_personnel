@@ -11,7 +11,14 @@ export default {
   },
   //获取招聘列表页数据
   getPositionList(cate_id='',nowPage=1) {
-    return axios.get(`${baseUrl}/position?cate_id=${cate_id}&nowPage=${nowPage}`).then((res)=>{
+    let param;
+    if(cate_id){
+      param = `cate_id=${cate_id}&nowPage=${nowPage}`
+    }else{
+      param = `nowPage=${nowPage}`
+    }
+
+    return axios.get(`${baseUrl}/position?${param}`).then((res)=>{
       return Promise.resolve(res.data)
     })
   },

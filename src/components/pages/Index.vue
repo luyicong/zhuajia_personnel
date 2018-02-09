@@ -22,7 +22,10 @@
         <div class="common-moudle-list-wrap">
           <flexbox :gutter="0" wrap="wrap" class="cate-list">
                 <flexbox-item v-for="item in cateList" :key="item.cate_id" :span="1/4">
-                  <div class="cate-item"><span>{{item.cate_name.slice(2,4)}}</span><p>{{item.cate_name}}</p></div>
+                  <router-link tag="div" class="cate-item" :to="{ path: 'positionlist',query:{ cate_id: item.cate_id,cate_name: item.cate_name}}">
+                    <span>{{item.cate_name.slice(2,4)}}</span>
+                    <p>{{item.cate_name}}</p>
+                  </router-link>
                 </flexbox-item>
                 <!-- <flexbox-item :span="1/4"><div class="cate-item"><span>勘察</span><p>勘察设计类</p></div></flexbox-item>
                 <flexbox-item :span="1/4"><div class="cate-item"><span>建筑</span><p>建筑设计类</p></div></flexbox-item>

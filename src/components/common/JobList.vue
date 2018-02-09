@@ -1,6 +1,6 @@
 <template>
   <div class="jobs-list-wrap">
-    <ul class="jobs-list">
+    <ul class="jobs-list" v-if="data.length">
       <router-link tag="li" v-for="(item,index) in data" :key="item.pos_id" :to="{ name: 'posdetail', params: { id: item.pos_id }}">
         <div class="left-info">
           <p class="job-name">{{item.pos_name}}</p>

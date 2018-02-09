@@ -1,29 +1,36 @@
 <template>
   <div class="jobs-list-page">
-      <div class="cate">
-        当前在<em>建筑设计类</em>分类下
-        <x-icon class="ios-close" type="ios-close" size="22"></x-icon>
+      <div class="cate" v-if="$route.query.cate_id">
+        当前在<em>{{ $route.query.cate_name }}</em>分类下
+        <x-icon class="ios-close" type="ios-close" size="22" @click="closeCate()"></x-icon>
       </div>
       <job-list :data="positionList"></job-list>
-      <loading-more :isLoad="isLoad" :text="text" @loadMore="getList()"></loading-more>
+      <p style="text-align:center;margin-top:50px;" v-if="(!positionList.length && isLoad)">
+        <inline-loading></inline-loading><span style="vertical-align:middle;display:inline-block;font-size:14px;">&nbsp;&nbsp;加载中</span>
+      </p>
+      <div v-if="(!positionList.length && !isLoad)" class="empty">
+        暂无职位数据
+      </div>
+      <loading-more v-if="positionList.length" :isLoad="isLoad" :text="text" @loadMore="getList()"></loading-more>
       <toast v-model="isErr" type="text" width="15em" :time="1000" is-show-mask :text="err" :position="'middle'">{{ err }}</toast>
   </div>
 </template>
 <script>
 import JobList from '../common/JobList'
 import loadingMore from '../common/loadingMore'
-import { Toast } from 'vux'
+import { Toast , InlineLoading } from 'vux'
 import Api from '../../api'
 export default {
   components: {
     JobList,
     loadingMore,
-    Toast
+    Toast,
+    InlineLoading
   },
   data () {
     return {
       positionList:[],
-      isLoad:false,
+      isLoad:true,
       nowPage:1,
       text:'加载中',
       isErr:false,
@@ -31,11 +38,11 @@ export default {
     }
   },
   beforeCreate() {
-    Api.getPositionList().then((res)=>{
-      if(res.status == 1){
-        this.positionList = res.data
-      }
-    })
+    // Api.getPositionList().then((res)=>{
+    //   if(res.status == 1){
+    //     this.positionList = res.data
+    //   }
+    // })
   },
   computed:{
     isShowErrToast() {
@@ -43,7 +50,22 @@ export default {
     }
   },
   created() {
-    // console.log('121212')
+    console.log('121212')
+    // console.log(this.$route.query.cate_id)
+    this.isLoad = true
+    Api.getPositionList(this.$route.query.cate_id?this.$route.query.cate_id:'',this.nowPage).then((res)=>{
+      if(res.status == 1){
+        if(res.data.length){
+          this.positionList = res.data
+        }else{
+          this.positionList = []
+        }
+      }
+      console.log('3333333')
+
+      this.isLoad = false
+    })
+    // this.getList()
   },
   methods: {
     getList() {
@@ -51,7 +73,7 @@ export default {
       this.isLoad = true
       this.nowPage++
       // console.log(this.nowPage)
-      Api.getPositionList('',this.nowPage).then((res)=>{
+      Api.getPositionList(this.$route.query.cate_id||'',this.nowPage).then((res)=>{
         if(res.status == 1){
           setTimeout(()=>{
             if(res.data.length){
@@ -67,6 +89,12 @@ export default {
       }).catch((err)=>{
         this.isErr = true
       })
+    },
+    //关闭分类
+    closeCate() {
+      this.$router.push({path:'positionlist'})
+      this.positionList = []
+      this.getList()
     }
   }
 }
@@ -74,6 +102,14 @@ export default {
 <style scoped>
 .jobs-list-page{
   /* background-color: #fff; */
+}
+.empty{
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    margin-top: 30px;
+    color: #666;
+    font-size: 15px;
 }
 .cate{
     width: 100%;
