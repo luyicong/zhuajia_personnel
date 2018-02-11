@@ -1,10 +1,10 @@
 <template>
   <div class="create-resume-page">
     <group title="只需30秒填写简历,轻松搞定工作!" label-width="4.5em" label-margin-right="2em" label-align="right">
-      <x-input title="姓名" placeholder="请输入姓名" v-model="usrResume.name"></x-input>
+      <x-input title="姓名" placeholder="请输入姓名" v-model="usrResume.realname"></x-input>
       <selector title="性别" placeholder="请选择性别" :options="['男', '女']" v-model="usrResume.sex"></selector>
       <datetime title="出生年月" placeholder="请选择出生年月" v-model="usrResume.birthy" value-text-align="left"></datetime>
-      <selector title="最高学历" placeholder="请选择最高学历" :options="['中专', '大专' , '本科','硕士','博士','博士后']" v-model="usrResume.edu"></selector>
+      <selector title="最高学历" placeholder="请选择最高学历" :options="['中专', '大专' , '本科','硕士','博士','博士后']" v-model="usrResume.maxedu"></selector>
       <selector title="工作经验" placeholder="请选择工作经验" :options="['不限', '1年以下','1-3年','3-5年','5-10年','10年以上']" v-model="usrResume.workexp"></selector>
       <x-input title="现居住地" placeholder="请填写现居住地" v-model="usrResume.nowaddress"></x-input>
       <x-input title="邮箱" placeholder="请填写邮箱" v-model="usrResume.email"></x-input>
@@ -38,7 +38,7 @@ export default {
     return {
       usrResume:{
         //姓名
-        name:'',
+        realname:'',
         //性别
         sex:'',
         //出生年月

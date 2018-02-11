@@ -4,8 +4,8 @@
       <div class="login-title">用户登录</div>
       <div class="login-form-wrap">
         <!-- <group title="用户登录"> -->
-          <x-input name="mobile" placeholder="用户名"></x-input>
-          <x-input name="mobile" placeholder="密码"></x-input>
+          <x-input name="user_name" placeholder="手机号/邮箱"></x-input>
+          <x-input name="password" placeholder="密码"></x-input>
         <!-- </group> -->
       </div>
     </div>
@@ -14,14 +14,14 @@
       <router-link style="float:right;" tag="span" :to="{ path: '/resetPwd'}">忘记密码</router-link>
     </div>
     <box gap="10px 10px">
-      <x-button type="primary">登录</x-button>
+      <x-button type="primary" @click.native="Login()">登录</x-button>
       <x-button :link="'/register'">立即注册</x-button>
     </box>
   </div>
 </template>
 <script>
 import { Group , XInput , XButton, Box , CheckIcon} from 'vux'
-
+import Api from '../../api'
 export default {
   components: {
     Group,
@@ -31,8 +31,17 @@ export default {
     CheckIcon
   },
   data: () => ({
-    isAutoLogin:true
-  })
+    isAutoLogin:true,
+    user_name:'',
+    password:''
+  }),
+  methods: {
+    Login() {
+      Api.userLogin({user_name,password}).then((res)=>{
+        console.log(res)
+      })
+    }
+  }
 }
 </script>
 <style scoped>

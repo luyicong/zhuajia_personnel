@@ -11,11 +11,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api':{
-       target:'http://blog.yoho167.com/api',
+      '/dev':{
+       target:'http://www.mytalent.com/api',
        changeOrigin:true,
        pathRewrite:{
-         '^/api':''
+         '^/dev':''
        }
      }
     },

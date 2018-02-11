@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+// axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 const baseUrl = 'http://www.mytalent.com/api/v1'
 
 export default {
@@ -43,6 +45,26 @@ export default {
   //人才列表
   getResumeList(nowPage=1) {
     return axios.get(`${baseUrl}/resume?nowPage=${nowPage}`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //用户注册
+  userRegist(data) {
+    // return axios.get(`${baseUrl}/register`,{params:data}).then((res)=>{
+    //   return Promise.resolve(res.data)
+    // })
+    return axios({
+      url:`/dev/v1/register`,
+      method: 'post',
+      dataType:'json',
+      data:data
+    }).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  // 用户注册
+  userLogin(data) {
+    return axios.get(`${baseUrl}/login`,{params:data}).then((res)=>{
       return Promise.resolve(res.data)
     })
   }
