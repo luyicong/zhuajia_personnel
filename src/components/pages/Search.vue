@@ -20,10 +20,16 @@
            ></search>
       </div>
     </div>
-    <div class="search-result-list">
+    <div class="key-history-list" v-if="(!searchList.length && !keyword)">
+      <p v-for="item in historyList" @click="searchByHis(item)">{{item}}</p>
+    </div>
+    <div class="search-result-list" v-if="searchList.length">
       <job-list v-if="typeVal === `找工作`" :data="searchList"></job-list>
       <candidate-list v-else-if="typeVal === `找人才`" :data="searchList"></candidate-list>
       <com-list v-else-if="typeVal === `找企业`" :data="searchList"></com-list>
+    </div>
+    <div v-if="!searchList.length && !historyList.length" class="search-result-list" style="background-color:#f0f2f5">
+        <p style="height:50px;line-height:50px;font-size:14px;color:#666;text-align:center;">{{textTip}}</p>
     </div>
     <!--类型选择-->
     <div v-transfer-dom>
@@ -44,7 +50,8 @@
   </div>
 </template>
 <script>
-import { Search , XInput , PopupHeader, Popup, Group , Cell , Radio ,TransferDom} from 'vux'
+
+import { Search , XInput , PopupHeader, Popup, Group , Cell , Radio ,TransferDom , cookie} from 'vux'
 //工作列表
 import JobList from '../common/JobList'
 //人才列表
@@ -53,6 +60,8 @@ import CandidateList from '../common/CandidateList'
 import ComList from '../common/ComList'
 
 import { mapState , mapMutations , mapActions} from 'vuex'
+
+import Api from '../../api'
 
 export default {
   components:{
@@ -76,13 +85,21 @@ export default {
       isShowCityList:false,
       // typeVal:'找工作',
       selectVal:'',
+      //类型
+      type:'pos',
+
       popupShow:false,
+
       keyword:'',
+
       results: [],
+
       autoFixed: false,
-      //搜索企业结果列表数据
-      companyList:[],
-      // searchList:[]
+
+      textTip:'请输入相关关键字搜索',
+
+      //搜索记录
+      historyList:[]
     }
   },
   computed:{
@@ -94,6 +111,9 @@ export default {
   created() {
     //do something after creating vue instance
     this.selectVal = this.typeVal
+    this.type = 'pos'
+    this.historyList = Boolean(cookie.get('keyList'))?JSON.parse(cookie.get('keyList')):[]
+    // console.log(this.historyList)
   },
   methods: {
     ...mapMutations(['updateTypeVal','updateSearchList']),
@@ -109,6 +129,17 @@ export default {
     onOk() {
       this.popupShow = false
       this.updateTypeVal({type:this.selectVal});
+      switch (this.selectVal) {
+        case '找工作':
+          this.type = 'pos'
+          break;
+        case '找人才':
+          this.type = 'talent'
+          break;
+        case '找企业':
+          this.type = 'comp'
+          break;
+      }
       this.updateSearchList({list:[]});
       this.keyword = ''
       this.results = []
@@ -123,31 +154,30 @@ export default {
    getResult (val) {
      this.results = val ? getResult(this.keyword) : []
    },
+   searchByHis(key) {
+     this.keyword = key;
+     this.onSubmit()
+   },
    onSubmit (val) {
      // window.alert('on submit' + val)
      this.$vux.loading.show({
        position:'absolute',
        text: '正在搜索'
       })
-     setTimeout(()=>{
-       switch (this.typeVal) {
-          case '找工作':
-            // this.searchList = [{},{},{},{},{}]
-            this.updateSearchList({list:[{},{},{},{},{}]});
-            break;
-          case '找人才':
-            // this.searchList = [{},{},{},{},{},{}]
-            this.updateSearchList({list:[{},{},{},{},{},{}]});
-            break;
-          case '找企业':
-            // this.searchList = [{},{},{},{},{},{},{},{},{},{},{}]
-            this.updateSearchList({list:[{},{},{},{},{},{},{},{},{},{},{}]});
-            break;
+     this.historyList.push(this.keyword);
+     this.historyList =  new Set(this.historyList);
+     this.historyList = JSON.stringify(this.historyList)
+     cookie.set('keyList',this.historyList);
+     this.updateSearchList({list:[]});
+     Api.search(this.type,this.keyword).then((res)=>{
+       if(res.status == 1){
+            setTimeout(()=>{
+               this.updateSearchList({list:res.data});
+               if(!res.data.length)   this.textTip ='没有搜索到相关结果'
+               this.$vux.loading.hide()
+            },2000)
        }
-      // this.companyList = [{},{},{},{},{},{},{},{},{},{},{}]
-      this.$vux.loading.hide()
-     },2000)
-
+     })
    },
    onCancel () {
      console.log('on cancel')
@@ -165,9 +195,9 @@ export default {
 }
 function getResult (val) {
   let rs = []
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 1; i++) {
     rs.push({
-      title: `${val} result: ${i + 1} `,
+      title: `${val}`,
       other: i
     })
   }
@@ -217,6 +247,24 @@ function getResult (val) {
   flex:1;
   /* height: 44px; */
   /* position: relative; */
+}
+.key-history-list{
+  width: 100%;
+  overflow: hidden;
+  padding:10px;
+  box-sizing: border-box;
+  /* display: flex; */
+}
+.key-history-list p{
+  float: left;
+  height: 26px;
+  line-height: 26px;
+  padding:0 10px;
+  font-size: 14px;
+  background-color: #fff;
+  margin-right: 15px;
+  border-radius: 6px;
+  margin-top:10px;
 }
 #input-box{
   border-radius: 6px;

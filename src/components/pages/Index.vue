@@ -160,7 +160,7 @@ export default {
   beforeCreate() {
     //do something before creating vue instance
     Api.getIndexData().then((res)=>{
-      console.log(res)
+      // console.log(res)
       if(res.status == 1){
         this.indexData = res.data
         this.cateList = res.data.cateList
@@ -177,7 +177,7 @@ export default {
   },
   created() {
     //do something after creating vue instance
-    console.log(this.userInfo)
+    // console.log(this.userInfo)
 
   },
   methods: {

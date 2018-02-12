@@ -4,6 +4,8 @@ import Vuex from 'vuex'
 
 import { cookie } from 'vux'
 
+import Api from '../api'
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({}) // 这里你可能已经有其他 module
@@ -43,7 +45,8 @@ store.registerModule('search', {
     },
     updateSearchList (state, payload) {
       state.searchList = payload.list
-    }
+    },
+
   },
   actions: {
     updateTypeVal ({commit}, type) {

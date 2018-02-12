@@ -93,5 +93,10 @@ export default {
     return axios.get(`${baseUrl}/resumeDetail/${user_id}`).then((res)=>{
       return Promise.resolve(res.data)
     })
+  },
+  search(type,key) {
+    return axios.get(`${baseUrl}/search?type=${type}&key=${key}`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
   }
 }
