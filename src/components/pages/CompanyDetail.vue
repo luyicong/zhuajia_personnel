@@ -7,8 +7,8 @@
           </div>
         </div>
         <div class="header-bottom">
-          <p><strong>广西裕华建设集团有限公司</strong></p>
-          <p><span>民营</span>|<span>50-100人</span>|<span>广西南宁</span></p>
+          <p><strong>{{companyInfo.comp_name}}</strong></p>
+          <p><span>{{companyInfo.comp_type}}</span>|<span>{{companyInfo.comp_scale}}</span>|<span>{{companyInfo.comp_address}}</span></p>
         </div>
       </div>
       <div class="resume-info-moudle job-want">
@@ -17,25 +17,20 @@
           公司名片</div>
         <div class="info-moudle-content">
           <p>
-            <span lass="key">规模：</span><span class="val">50-100人</span>
+            <span lass="key">规模：</span><span class="val">{{companyInfo.comp_scale}}</span>
           </p>
           <p>
-            <span lass="key">行业：</span><span class="val">房地产</span>
+            <span lass="key">行业：</span><span class="val">{{companyInfo.comp_industry}}</span>
           </p>
           <p>
-            <span lass="key">地址：</span><span class="val">设计类</span>
+            <span lass="key">地址：</span><span class="val">{{companyInfo.comp_address}}</span>
           </p>
         </div>
       </div>
       <div class="resume-info-moudle user-contact">
         <div class="moudle-common-title">公司简介</div>
-        <div class="info-moudle-content">
-          <p>
-            <span lass="key">手机：</span><span class="val">183****0435</span><span class="nologin-tip">（登录后查看）</span>
-          </p>
-          <p>
-            <span lass="key">邮箱：</span><span class="val">980****87@qq.com</span><span class="nologin-tip">（登录后查看） </span>
-          </p>
+        <div class="info-moudle-content company-desc">
+          {{companyInfo.comp_desc}}
         </div>
       </div>
       <div class="resume-info-moudle user-edu-experience">
@@ -43,12 +38,12 @@
         <div class="info-moudle-content">
           <div class="info-moudle-item">
             <p>
-              <span lass="key">手机：</span><span class="val">183****0435</span>
+              <span lass="key">电话：</span><span class="val">{{companyInfo.comp_phone}}</span>
             </p>
             <p>
-              <span lass="key">邮箱：</span><span class="val">980****87@qq.com</span>
+              <span lass="key">邮箱：</span><span class="val">{{companyInfo.comp_email}}</span>
             <p>
-              <span lass="key">地址：</span><span>河池市富华路32号（香榭苑15号楼2单元402号房)</span>
+              <span lass="key">地址：</span><span>{{companyInfo.comp_address}}</span>
             </p>
           </div>
         </div>
@@ -57,7 +52,10 @@
       <div class="resume-info-moudle user-edu-experience">
         <div class="moudle-common-title">该企业正在招聘职位</div>
         <div class="info-moudle-content">
-          <job-list :data="jobList"></job-list>
+          <job-list v-if="posList.length" :data="companyInfo.posList" :small_h="'small_h'"></job-list>
+          <div v-else class="empty">
+            暂无发布有职位
+          </div>
         </div>
       </div>
     </div>
@@ -76,13 +74,19 @@ export default {
   data () {
     return  {
       defaultImg:require('@/assets/img/no_photo_male.png'),
-      jobList:[{},{},{},{},{},{},{},{},{},{}]
+      companyInfo:{},
+      posList:[]
+      // jobList:[{},{},{},{},{},{},{},{},{},{}]
     }
   },
   beforeCreate() {
     //do something before creating vue instance
     Api.getCompanyDetailById(this.$route.params.id).then((res)=>{
-      console.log(res.data)
+      // console.log(res.data)
+      if(res.status == 1){
+        this.companyInfo = res.data
+        this.posList = res.data.posList
+      }
     })
   }
 }
@@ -153,6 +157,17 @@ export default {
   width: 100%;
   padding:10px;
   box-sizing: border-box;
+}
+.info-moudle-content .empty{
+  text-align: center;
+  line-height: 50px;
+  color: #999;
+}
+.company-desc{
+  font-size: 14px;
+  color: #666;
+  line-height: 30px;
+  text-indent:1.5em;
 }
 .info-moudle-content p{
   color: #999;

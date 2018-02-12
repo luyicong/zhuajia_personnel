@@ -1,7 +1,7 @@
 <template>
   <div class="resume-list-components-wrap">
     <div class="resume-list">
-      <router-link tag="div"  class="list-item" v-for="(item,index) in data" :key="item.id" :to="{ path: 'resumedetail', params: { id: item.id }}">
+      <router-link tag="div"  class="list-item" v-for="(item,index) in data" :key="item.id" :to="{ name: 'ResumeDetail', params: { id: item.id }}">
         <div class="item-top">
           <div class="top-left">
             <div class="left-img">

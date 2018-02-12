@@ -33,10 +33,10 @@
     data () {
       return {
         userInfo:{
-          user_name:'',
-          password:''
+          user_name:'18376640435',
+          password:'zxc123456'
         },
-        repassword:'',
+        repassword:'zxc123456',
         isErr:false,
         errText:'',
         isOk:false

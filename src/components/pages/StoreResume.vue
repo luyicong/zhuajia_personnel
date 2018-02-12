@@ -1,38 +1,45 @@
 <template>
   <div class="create-resume-page">
     <group title="只需30秒填写简历,轻松搞定工作!" label-width="4.5em" label-margin-right="2em" label-align="right">
-      <x-input title="姓名" placeholder="请输入姓名" v-model="usrResume.realname"></x-input>
-      <selector title="性别" placeholder="请选择性别" :options="['男', '女']" v-model="usrResume.sex"></selector>
-      <datetime title="出生年月" placeholder="请选择出生年月" v-model="usrResume.birthy" value-text-align="left"></datetime>
-      <selector title="最高学历" placeholder="请选择最高学历" :options="['中专', '大专' , '本科','硕士','博士','博士后']" v-model="usrResume.maxedu"></selector>
-      <selector title="工作经验" placeholder="请选择工作经验" :options="['不限', '1年以下','1-3年','3-5年','5-10年','10年以上']" v-model="usrResume.workexp"></selector>
-      <x-input title="现居住地" placeholder="请填写现居住地" v-model="usrResume.nowaddress"></x-input>
-      <x-input title="邮箱" placeholder="请填写邮箱" v-model="usrResume.email"></x-input>
-      <x-input title="手机号码" placeholder="请填写手机号码" disabled v-model="usrResume.phone"></x-input>
+      <x-input title="姓名" placeholder="请输入姓名" v-model="userInfo.realname"></x-input>
+      <selector title="性别" placeholder="请选择性别" :options="['男', '女']" v-model="userInfo.sex"></selector>
+      <datetime title="出生年月" placeholder="请选择出生年月" v-model="userInfo.birthy" value-text-align="left"></datetime>
+      <selector title="最高学历" placeholder="请选择最高学历" :options="['中专', '大专' , '本科','硕士','博士','博士后']" v-model="userInfo.maxedu"></selector>
+      <x-input title="工作经验" placeholder="请选择工作经验" v-model="userInfo.workexp"></x-input>
+      <x-input title="现居住地" placeholder="请填写现居住地" v-model="userInfo.nowaddress"></x-input>
+      <x-input title="邮箱" placeholder="请填写邮箱" v-model="userInfo.email"></x-input>
+      <x-input title="手机号码" placeholder="请填写手机号码" disabled v-model="userInfo.phone"></x-input>
     </group>
     <group label-width="4.5em" label-margin-right="2em" label-align="right">
       <selector title="目前状态" placeholder="请选择目前状态"
           :options="['目前已离职，可快速上岗', '目前在职，可考虑换新环境','观望有好的机会再考虑','目前暂无跳槽打算','应届毕业生']"
-          v-model="usrResume.workstate">
+          v-model="userInfo.workstate">
       </selector>
-      <selector title="工作性质" placeholder="请选择工作性质" :options="['全职', '兼职','实习']" v-model="usrResume.jobtype"></selector>
-      <popup-picker title="期待行业" placeholder="请选择期待行业" :data="list" v-model="usrResume.industry" value-text-align="left" @on-shadow-change="industryChange"></popup-picker>
-      <x-input title="期待职位" placeholder="请填写期待职位" v-model="usrResume.position"></x-input>
-      <selector title="期待薪资" placeholder="请选择工作经验" :options="['面议', '1.5k-3k/月','2.5k-3.5k/月','3.5k-5k/月','5k-10k/月','10k以上/月']" v-model="usrResume.salary"></selector>
-      <x-input title="工作地区" placeholder="请填写现居住地" v-model="usrResume.Workarea"></x-input>
+      <selector title="工作性质" placeholder="请选择工作性质" :options="['全职', '兼职','实习']" v-model="userInfo.jobtype"></selector>
+      <selector title="期待行业" placeholder="请选择期待行业" :options="['设计类', '造价类', '工程咨询类','监理类','施工类','规划类','其他类']" v-model="userInfo.industry"></selector>
+
+      <!-- <popup-picker title="期待行业" placeholder="请选择期待行业" :data="list" v-model="userInfo.industry" value-text-align="left" @on-shadow-change="industryChange"></popup-picker> -->
+      <x-input title="期待职位" placeholder="请填写期待职位" v-model="userInfo.position"></x-input>
+      <x-input title="期待薪资" placeholder="请填写期待薪资" v-model="userInfo.salary"></x-input>
+      <x-input title="工作地区" placeholder="请填写现居住地" v-model="userInfo.workarea"></x-input>
     </group>
     <box gap="20px 10px">
-      <x-button type="primary">保存</x-button>
+      <x-button type="primary" @click.native="upDateResume()">保存</x-button>
     </box>
+    <toast v-model="isOk" type="success">{{ '更新成功！' }}</toast>
+    <toast v-model="isErr" type="warn">{{ errText }}</toast>
   </div>
 </template>
 <script>
-import { GroupTitle, Group, Cell, XInput, Selector, Box,
+import { GroupTitle, Group, Cell, XInput, Selector, Box,Toast,cookie,
    PopupPicker, Datetime, XNumber, ChinaAddressData, XAddress, XTextarea, XSwitch , Checker , CheckerItem , XButton} from 'vux'
+import Api from '../../api'
+import { mapGetters , mapMutations} from 'vuex'
+
 export default {
   components: {
     GroupTitle,Group,Cell,XInput,Selector,PopupPicker,Datetime,XNumber,ChinaAddressData,XAddress,XTextarea,XSwitch,Checker,CheckerItem,XButton,
-    Box
+    Box,Toast
   },
   data () {
     return {
@@ -68,13 +75,44 @@ export default {
       },
       sex:'',
       list: [['设计类', '造价类', '工程咨询类','监理类','施工类','规划类','其他类']],
-      industry:[]
+      industry:[],
+      isOk:false,
+      isErr:false,
+      errText:''
     }
   },
+  computed:{
+    ...mapGetters({
+        userInfo:'getUserInfo',
+    })
+  },
+  created() {
+    //do something after creating vue instance
+    // userInfo.industry = userInfo.industry.join('')
+    //
+    // console.log(userInfo.industry)
+  },
   methods: {
+    ...mapMutations({
+      setUserInfo:'setUserInfo'
+    }),
     industryChange(data) {
       console.log(data)
       this.industry = data
+    },
+    //更新简历
+    upDateResume() {
+      Api.upDateResume(this.userInfo).then((res)=>{
+        if(res.status == 1){
+          this.isOk = true
+          cookie.set('user',JSON.stringify(this.userInfo))
+          this.setUserInfo({userInfo:this.userInfo})
+
+        }else{
+            this.isErr = true
+            this.errText = res.message
+        }
+      })
     }
   }
 }

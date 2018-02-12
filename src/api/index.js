@@ -50,21 +50,47 @@ export default {
   },
   //用户注册
   userRegist(data) {
-    // return axios.get(`${baseUrl}/register`,{params:data}).then((res)=>{
-    //   return Promise.resolve(res.data)
-    // })
-    return axios({
-      url:`/dev/v1/register`,
-      method: 'post',
-      dataType:'json',
-      data:data
-    }).then((res)=>{
+    return axios.post(`${baseUrl}/register`,data).then((res)=>{
       return Promise.resolve(res.data)
     })
+    // return axios({
+    //   url:`/dev/v1/register`,
+    //   method: 'post',
+    //   dataType:'json',
+    //   data:data
+    // }).then((res)=>{
+    //   return Promise.resolve(res.data)
+    // })
   },
   // 用户注册
   userLogin(data) {
     return axios.get(`${baseUrl}/login`,{params:data}).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //用户简历获取
+  getUserInfo(user_id) {
+    return axios.get(`${baseUrl}/getUserInfo/${user_id}`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //简历更新
+  upDateResume(data) {
+    return axios.post(`${baseUrl}/upDateResume`,data).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+    // return axios({
+    //   url:`/dev/v1/upDateResume`,
+    //   method: 'post',
+    //   dataType:'json',
+    //   data:data
+    // }).then((res)=>{
+    //   return Promise.resolve(res.data)
+    // })
+  },
+  //获取求职详情
+  getResumeDetail(user_id) {
+    return axios.get(`${baseUrl}/resumeDetail/${user_id}`).then((res)=>{
       return Promise.resolve(res.data)
     })
   }

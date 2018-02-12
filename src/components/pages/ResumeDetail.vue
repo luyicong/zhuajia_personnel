@@ -7,8 +7,8 @@
           </div>
         </div>
         <div class="header-bottom">
-          <p><strong>黄小明</strong></p>
-          <p><span>男</span>|<span>22岁</span>|<span>大专</span>|<span>不限工作经验</span></p>
+          <p><strong>{{info.realname}}</strong></p>
+          <p><span>{{info.sex}}</span>|<span>{{info.age}}</span>|<span>{{info.maxedu}}</span>|<span>{{info.workexp}}工作经验</span></p>
         </div>
       </div>
       <div class="resume-info-moudle job-want">
@@ -17,22 +17,22 @@
           求职意向</div>
         <div class="info-moudle-content">
           <p>
-            <span lass="key">求职状态：</span><span class="val">我目前已离职，可快速到岗</span>
+            <span lass="key">求职状态：</span><span class="val">{{info.workstate}}</span>
           </p>
           <p>
-            <span lass="key">工作性质：</span><span class="val">实习</span>
+            <span lass="key">工作性质：</span><span class="val">{{info.jobtype}}</span>
           </p>
           <p>
-            <span lass="key">期望行业：</span><span class="val">设计类</span>
+            <span lass="key">期望行业：</span><span class="val">{{info.industry}}</span>
           </p>
           <p>
-            <span lass="key">期望职位：</span><span class="val">设计助理：</span>
+            <span lass="key">期望职位：</span><span class="val">{{info.position}}</span>
           </p>
           <p>
-            <span lass="key">期望地区：</span><span class="val">广西南宁</span>
+            <span lass="key">期望地区：</span><span class="val">{{info.workarea}}</span>
           </p>
           <p>
-            <span lass="key">期望薪资：</span><span class="val">1.5k-3k/月</span>
+            <span lass="key">期望薪资：</span><span class="val">{{info.salary}}</span>
           </p>
         </div>
       </div>
@@ -40,14 +40,14 @@
         <div class="moudle-common-title">联系方式</div>
         <div class="info-moudle-content">
           <p>
-            <span lass="key">手机：</span><span class="val">183****0435</span><span class="nologin-tip">（登录后查看）</span>
+            <span lass="key">手机：</span><span class="val">{{info.phone || '暂无填写'}}</span><span class="nologin-tip">（登录后查看）</span>
           </p>
           <p>
-            <span lass="key">邮箱：</span><span class="val">980****87@qq.com</span><span class="nologin-tip">（登录后查看） </span>
+            <span lass="key">邮箱：</span><span class="val">{{info.email || '暂无填写'}}</span><span class="nologin-tip">（登录后查看） </span>
           </p>
         </div>
       </div>
-      <div class="resume-info-moudle user-edu-experience">
+      <!-- <div class="resume-info-moudle user-edu-experience">
         <div class="moudle-common-title">教育经历<span class="edu-num">1段教育经历</span></div>
         <div class="info-moudle-content">
           <div class="info-moudle-item">
@@ -61,21 +61,40 @@
             </p>
           </div>
         </div>
-      </div>
+      </div> -->
+      <toast v-model="isErr" type="warn">{{ errText }}</toast>
     </div>
 </template>
 <script>
-import { Flexbox , FlexboxItem} from 'vux'
+import { Flexbox , FlexboxItem , Toast} from 'vux'
+import Api from '../../api'
 export default {
   components: {
     Flexbox,
-    FlexboxItem
+    FlexboxItem,
+    Toast
   },
   name: "",
   data () {
     return  {
-      defaultImg:require('@/assets/img/no_photo_male.png')
+      defaultImg:require('@/assets/img/no_photo_male.png'),
+      info:{},
+      isErr:false,
+      errText:''
     }
+  },
+  beforeCreate() {
+    //do something before creating vue instance
+    Api.getResumeDetail(this.$route.params.id).then((res)=>{
+      if(res.status == 1){
+        this.info = res.data
+      }else{
+        this.isErr = true
+        this.errText = res.message
+      }
+    }).catch((err)=>{
+      this.isErr = true
+    })
   }
 }
 </script>

@@ -7,7 +7,7 @@
       <!--search/start-->
       <div class="index-search">
         <x-icon class="icon-search" type="ios-search" size="22"></x-icon>
-        <div class="input-box" @click="openSearchPage()">请输入职位名/公司名/院校名/关键字</div>
+        <div class="input-box" @click="openSearchPage()">请输入职位名/公司名/关键字</div>
       </div>
       <!--search/end-->
       <!--合作人口/start-->
@@ -18,7 +18,9 @@
       <!--合作人口/end-->
       <!--jobs/start-->
       <div class="common-moudle-wrap">
-        <div class="common-moudle-title">职位分类<router-link tag="span" :to="{ path:'catelist'}">全部&nbsp》</router-link></div>
+        <div class="common-moudle-title">职位分类
+          <!--<router-link tag="span" :to="{ path:'catelist'}">全部&nbsp》</router-link>-->
+        </div>
         <div class="common-moudle-list-wrap">
           <flexbox :gutter="0" wrap="wrap" class="cate-list">
                 <flexbox-item v-for="item in cateList" :key="item.cate_id" :span="1/4">
@@ -63,7 +65,7 @@
         <div class="common-moudle-title">建筑求职信息<router-link tag="span" :to="{ path:'resume'}">全部&nbsp》</router-link></div>
         <div class="common-moudle-list-wrap" style="padding:0">
           <ul class="candidate-list">
-            <router-link tag="li" v-for="(item,index) in resumeList" :key="item.id" :to="{ path: 'resumedetail', params: { id: item.id }}">
+            <router-link tag="li" v-for="(item,index) in resumeList" :key="item.id" :to="{ name: 'ResumeDetail', params: { id: item.id }}">
               <div class="user-info">
                 <div class="head-img">
                   <img :src="defaultImg" alt="">
@@ -109,7 +111,7 @@
 </template>
 
 <script>
-import { Swiper , Flexbox , FlexboxItem} from 'vux'
+import { Swiper , Flexbox , FlexboxItem , cookie} from 'vux'
 import ComList from '../common/ComList'
 import JobList from '../common/JobList'
 import Api from '../../api'
@@ -166,8 +168,17 @@ export default {
         this.resumeList = res.data.resumeList
         this.positionList = res.data.positionList
       }
-
     })
+  },
+  computed:{
+    ...mapGetters({
+        userInfo:'getUserInfo',
+    })
+  },
+  created() {
+    //do something after creating vue instance
+    console.log(this.userInfo)
+
   },
   methods: {
     // ...mapMutations({updateLoading:'UPDATE_LOADING'}),

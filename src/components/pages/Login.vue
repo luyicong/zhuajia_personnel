@@ -4,8 +4,8 @@
       <div class="login-title">用户登录</div>
       <div class="login-form-wrap">
         <!-- <group title="用户登录"> -->
-          <x-input name="user_name" placeholder="手机号/邮箱"></x-input>
-          <x-input name="password" placeholder="密码"></x-input>
+          <x-input v-model="user_name" name="user_name" placeholder="手机号/邮箱"></x-input>
+          <x-input v-model="password" type="password" name="password" placeholder="密码"></x-input>
         <!-- </group> -->
       </div>
     </div>
@@ -17,28 +17,61 @@
       <x-button type="primary" @click.native="Login()">登录</x-button>
       <x-button :link="'/register'">立即注册</x-button>
     </box>
+    <toast v-model="isOk" type="success">{{ '恭喜，登录成功' }}</toast>
+    <toast v-model="isErr" type="warn">{{ errText }}</toast>
   </div>
 </template>
 <script>
-import { Group , XInput , XButton, Box , CheckIcon} from 'vux'
+import { Group , XInput , XButton, Box , CheckIcon , md5 , Toast , cookie } from 'vux'
 import Api from '../../api'
+import { mapGetters , mapMutations} from 'vuex'
 export default {
   components: {
     Group,
     XInput,
     XButton,
     Box,
-    CheckIcon
+    CheckIcon,
+    Toast
   },
   data: () => ({
     isAutoLogin:true,
-    user_name:'',
-    password:''
+    user_name:'18376640435',
+    password:'zxc123456',
+    isOk:false,
+    isErr:false,
+    errText:''
   }),
+  computed:{
+    ...mapGetters({
+      userInfo:'getUserInfo'
+    })
+  },
+  created() {
+    //do something after creating vue instance
+    console.log(md5('zxc123456'))
+    // if(!Boolean(this.userInfo.user_id)){
+    //   this.$router.push({path:'/'})
+    // }
+  },
   methods: {
+    ...mapMutations({
+      setUserInfo:'setUserInfo'
+    }),
     Login() {
-      Api.userLogin({user_name,password}).then((res)=>{
+      Api.userLogin({user_name:this.user_name,password:md5(this.password)}).then((res)=>{
         console.log(res)
+        if(res.status == 1){
+          this.isOk = true
+          cookie.set('user',JSON.stringify(res.data))
+          this.setUserInfo({userInfo:res.data})
+          setTimeout(()=>{
+            this.$router.push({path:'/'})
+          },2000)
+        }else{
+          this.isErr = true
+          this.errText = res.message
+        }
       })
     }
   }

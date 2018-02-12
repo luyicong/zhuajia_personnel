@@ -4,8 +4,8 @@
       <div class="user-head-img">
         <img :src="defaultImg" alt="">
       </div>
-      <p class="user-name">黄小明</p>
-      <p class="user-account">980469887@qq.com</p>
+      <p class="user-name">{{ userInfo.realname }}</p>
+      <p class="user-account">{{ userInfo.user_name }}</p>
     </div>
     <div class="user-center-nav">
       <!-- <ul>
@@ -23,13 +23,14 @@
         <cell :title="`个人资料`" :link="{path:'/userinfo'}"></cell>
       </group>
       <box gap="20px 10px">
-        <x-button type="warn">退出登录</x-button>
+        <x-button type="warn" @click.native="exitFn()">退出登录</x-button>
       </box>
     </div>
   </div>
 </template>
 <script>
-import { Group , Cell , XButton, Box,} from 'vux'
+import { Group , Cell , XButton, Box,cookie} from 'vux'
+import { mapGetters , mapMutations} from 'vuex'
   export default {
     components: {
       Group,
@@ -40,6 +41,28 @@ import { Group , Cell , XButton, Box,} from 'vux'
     data () {
       return {
         defaultImg:require('@/assets/img/no_photo_male.png'),
+        // userInfo:{}
+      }
+    },
+    computed:{
+      ...mapGetters({
+          userInfo:'getUserInfo'
+      })
+    },
+    created() {
+        if(!Boolean(this.userInfo.user_id)){
+          this.$router.push({path:'/'})
+        }
+      //do something after creating vue instance
+      // console.log(JSON.parse(cookie.get('user')))
+      // this.userInfo = JSON.parse(cookie.get('user'))
+    },
+    methods: {
+      ...mapMutations(['logout']),
+      //退出登录
+      exitFn() {
+        this.logout({userInfo:{}})
+        this.$router.push({path:'/'})
       }
     }
   }

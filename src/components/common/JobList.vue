@@ -1,7 +1,7 @@
 <template>
   <div class="jobs-list-wrap">
     <ul class="jobs-list" v-if="data.length">
-      <router-link tag="li" v-for="(item,index) in data" :key="item.pos_id" :to="{ name: 'posdetail', params: { id: item.pos_id }}">
+      <router-link tag="li" v-for="(item,index) in data" :key="item.pos_id" :to="{ name: 'posdetail', params: { id: item.pos_id }}" :class="[small_h]">
         <div class="left-info">
           <p class="job-name">{{item.pos_name}}</p>
           <!-- <p><span class="salary">{{item.pos_salary}}</span><span>{{item.pos_edu}}/{{item.pos_exp}}/{{item.pos_age}}</span></p> -->
@@ -22,6 +22,10 @@ export default {
     data: {
       type: Array,
       default: arr => []
+    },
+    small_h:{
+      type: String,
+      default:''
     }
   },
   data () {
@@ -42,6 +46,9 @@ export default {
   height: 82px;
   padding:10px;
   border-bottom: 1px solid #eee;
+}
+.jobs-list li.small_h{
+  height: 66px;
 }
 .jobs-list .left-info{
   flex: 3;

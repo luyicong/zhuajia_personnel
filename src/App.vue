@@ -34,7 +34,7 @@
         <i slot="icon" class="iconfont icon-rencaizhongxin"></i>
         <span slot="label">求职信息</span>
       </tabbar-item>
-      <tabbar-item :selected="$route.path === '/user'" link="/user">
+      <tabbar-item :selected="$route.path === '/user'" :link="Boolean(this.user.user_id)?`/user`:`/login`">
         <!-- <img slot="icon" src="../assets/demo/icon_nav_article.png"> -->
         <i slot="icon" class="iconfont icon-jobtitle"></i>
         <span slot="label">个人中心</span>
@@ -61,7 +61,8 @@ export default {
   computed: {
     ...mapState({
       isLoading: state => state.vux.isLoading,
-      direction: state => state.vux.direction
+      direction: state => state.vux.direction,
+      user: state => state.user.userInfo,
     }),
     leftOptions () {
       return {
@@ -137,7 +138,7 @@ export default {
     },
     onClickMore () {
       this.showMenu = true
-    },
+    }
   }
 }
 </script>
