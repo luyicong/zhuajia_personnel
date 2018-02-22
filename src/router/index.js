@@ -112,6 +112,14 @@ export default new Router({
         require(['@/components/pages/UpdatePwd'], resolve)
       }
     },
+    //投递记录
+    {
+      path: '/deliverylist',
+      name: 'DeliveryListPage',
+      component: (resolve)=>{
+        require(['@/components/pages/DeliveryListPage'], resolve)
+      }
+    },
     //我的收藏/职位收藏
     {
       path: '/collectionpage',

@@ -100,9 +100,27 @@ export default {
       return Promise.resolve(res.data)
     })
   },
+  //投递职位
+  deliveryPosition(user_id,pos_id) {
+    return axios.post(`${baseUrl}/deliveryPosition?user_id=${user_id}&pos_id=${pos_id}`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //获取用户投递列表
+  getDeliveryList(user_id) {
+    return axios.get(`${baseUrl}/deliveryList/${user_id}`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
   //获取用户收藏列表
   getCollectList(user_id) {
     return axios.get(`${baseUrl}/collectList/${user_id}`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //检验职位是否已投递
+  checkDelivery (user_id,pos_id) {
+    return axios.get(`${baseUrl}/checkDelivery?user_id=${user_id}&pos_id=${pos_id}`).then((res)=>{
       return Promise.resolve(res.data)
     })
   },

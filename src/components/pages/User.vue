@@ -16,7 +16,7 @@
       </ul> -->
       <group>
         <cell :title="`我的简历`" :link="{path:'/storeresume'}"></cell>
-        <cell :title="`投递记录`" :link="{path:'/demo'}"></cell>
+        <cell :title="`投递记录`" :link="{path:'/deliverylist'}"></cell>
         <cell :title="`我的收藏`" :link="{path:'/collectionpage'}"></cell>
         <!-- <cell :title="`浏览记录`" :link="{path:'/demo'}"></cell> -->
         <cell :title="`修改密码`" :link="{path:'/updatepwd'}"></cell>

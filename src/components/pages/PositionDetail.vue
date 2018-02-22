@@ -56,8 +56,9 @@
           面试过程中，遇到用人单位收取费用请提高警惕
         </div>
       </div>
-      <div class="detail-moudle-item btn">
-        <x-button type="primary">立即申请</x-button>
+      <div v-if="isLoad" class="detail-moudle-item btn">
+        <x-button v-if="isDelivery" disabled>已申请</x-button>
+        <x-button v-else @click.native="deliveryPos()" type="primary">立即申请</x-button>
       </div>
       <div v-transfer-dom>
         <confirm v-model="confirmIsShow"
@@ -69,7 +70,7 @@
           <p style="text-align:center;">还没登录，请先登录</p>
         </confirm>
       </div>
-      <toast v-model="collectOk" type="text">{{collectText}}</toast>
+      <toast v-model="collectOk" type="text">{{tipText}}</toast>
     </div>
 </template>
 <script>
@@ -92,13 +93,22 @@ export default {
   },
   data () {
     return  {
+      //是否已经加载完详情数据‘
+      isLoad:false,
+
       defaultImg:require('@/assets/img/no_photo_male.png'),
+
       detailInfo:{},
+
       confirmIsShow:false,
+      //收藏成功
       collectOk:false,
-      collectText:'',
+      //操作提示文本
+      tipText:'',
       //是否已经收藏
-      isCollect:false
+      isCollect:false,
+      //职位是否已投递
+      isDelivery:false
     }
   },
   computed:{
@@ -112,6 +122,7 @@ export default {
     Api.getPosDetailById(this.$route.params.id).then((res)=>{
       if(res.status == 1){
         this.detailInfo = res.data
+        this.isLoad = true
         console.log(res.data)
       }
     })
@@ -124,6 +135,15 @@ export default {
           this.isCollect = true
         }else{
           this.isCollect = false
+        }
+      })
+      Api.checkDelivery(this.userInfo.user_id,this.$route.params.id).then((res)=>{
+        if(res.status == 1){
+          this.isDelivery = true
+          console.log(this.isDelivery)
+          console.log('5656565656')
+        }else{
+          this.isDelivery = false
         }
       })
     }
@@ -142,6 +162,24 @@ export default {
     onHide () {
       console.log('onHide')
     },
+    //申请职位
+    deliveryPos () {
+      if(!Boolean(this.userInfo.user_id)){
+        this.confirmIsShow = true
+      }else{
+        Api.deliveryPosition(this.userInfo.user_id,this.detailInfo.pos_id).then((res)=>{
+          if(res.status == 1){
+            this.collectOk = true
+            this.isDelivery = true
+            this.tipText = res.message
+          }else{
+            this.tipText = res.message
+          }
+        })
+      }
+
+    },
+    //收藏职位
     collect(pos_id) {
       //用户未登录
       if(!Boolean(this.userInfo.user_id)){
@@ -151,9 +189,9 @@ export default {
           if(res.status == 1){
             this.collectOk = true
             this.isCollect = true
-            this.collectText = res.message
+            this.tipText = res.message
           }else{
-            this.collectText = res.message
+            this.tipText = res.message
           }
         })
       }

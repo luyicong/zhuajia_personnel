@@ -5,7 +5,7 @@
         <div class="left-info">
           <p class="job-name">{{item.pos_name}}</p>
           <p>{{item.comp_name}}</p>
-          <p class="time">收藏日期：{{item.create_time}}</p>
+          <p class="time">投递日期：{{item.create_time}}</p>
         </div>
         <!-- <div class="right-info">
           <span :class="index>2?'isDelivery':''">{{index>2?'已投递':'未投递'}}</span>
@@ -32,7 +32,7 @@ export default {
   data () {
     return {
         List:[],
-        tip:'目前暂无收藏数据！',
+        tip:'目前暂投递职位！',
         isCancelOk:false
     }
   },
@@ -46,13 +46,13 @@ export default {
     if(!Boolean(this.userInfo.user_id)){
       this.List = []
     }else{
-      this.getCollectList()
+      this.getDeliveryList()
     }
   },
   methods: {
     //获取收藏列表
-    getCollectList() {
-      Api.getCollectList(this.userInfo.user_id).then((res)=>{
+    getDeliveryList() {
+      Api.getDeliveryList(this.userInfo.user_id).then((res)=>{
         console.log(res.data)
         if(res.status == 1){
           this.List = res.data
