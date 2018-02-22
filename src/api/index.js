@@ -94,8 +94,33 @@ export default {
       return Promise.resolve(res.data)
     })
   },
+  //搜索
   search(type,key) {
     return axios.get(`${baseUrl}/search?type=${type}&key=${key}`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //获取用户收藏列表
+  getCollectList(user_id) {
+    return axios.get(`${baseUrl}/collectList/${user_id}`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //职位收藏操作
+  collectPos (user_id,pos_id) {
+    return axios.post(`${baseUrl}/collectPos?user_id=${user_id}&pos_id=${pos_id}`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //检验职位是否收藏
+  checkCollect (user_id,pos_id) {
+    return axios.get(`${baseUrl}/checkCollect?user_id=${user_id}&pos_id=${pos_id}`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //取消收藏
+  cancelCollect (c_id) {
+    return axios.get(`${baseUrl}/cancelCollect?c_id=${c_id}`).then((res)=>{
       return Promise.resolve(res.data)
     })
   }

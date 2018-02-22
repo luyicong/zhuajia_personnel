@@ -3,7 +3,16 @@
       <div class="position-info detail-moudle-item">
         <div class="info-item position-name">
           <h3>{{detailInfo.pos_name}}</h3>
-          <span><x-icon type="ios-heart-outline" size="18"></x-icon>收藏</span>
+          <!-- <router-link tag="span" v-if="Boolean(userInfo.user_id)" :to="{ path: '/login'}">
+            <x-icon type="ios-star-outline" size="18"></x-icon>收藏</router-link> -->
+          <span class="is-collect" v-if="isCollect">
+            <x-icon type="ios-star" size="18"></x-icon>
+            已收藏
+          </span>
+          <span v-else @click="collect(detailInfo.pos_id)">
+            <x-icon type="ios-star-outline" size="18"></x-icon>
+            收藏
+          </span>
         </div>
         <div class="info-item desc">
           <flexbox :gutter="0" wrap="wrap" class="cate-list">
@@ -28,7 +37,7 @@
             <span>{{ detailInfo.comp_scale }}</span>
             <span>{{ detailInfo.comp_type }}</span>
           </p>
-          <p>设计施工一条龙服务</p>
+          <p class="desc-text">{{detailInfo.comp_desc}}</p>
         </div>
         <p class="right-icon" ><x-icon type="ios-arrow-right" size="20"></x-icon></p>
       </router-link>
@@ -47,23 +56,55 @@
           面试过程中，遇到用人单位收取费用请提高警惕
         </div>
       </div>
+      <div class="detail-moudle-item btn">
+        <x-button type="primary">立即申请</x-button>
+      </div>
+      <div v-transfer-dom>
+        <confirm v-model="confirmIsShow"
+        :title="'温馨提示'"
+        @on-cancel="onCancel"
+        @on-confirm="onConfirm"
+        @on-show="onShow"
+        @on-hide="onHide">
+          <p style="text-align:center;">还没登录，请先登录</p>
+        </confirm>
+      </div>
+      <toast v-model="collectOk" type="text">{{collectText}}</toast>
     </div>
 </template>
 <script>
-import { Flexbox , FlexboxItem} from 'vux'
+import { Flexbox , FlexboxItem , XButton , Confirm , TransferDomDirective as TransferDom , Toast } from 'vux'
+
+import { mapGetters , mapMutations} from 'vuex'
 
 import Api from '../../api'
 
 export default {
+  directives: {
+    TransferDom
+  },
   components: {
     Flexbox,
-    FlexboxItem
+    FlexboxItem,
+    XButton,
+    Confirm,
+    Toast
   },
   data () {
     return  {
       defaultImg:require('@/assets/img/no_photo_male.png'),
-      detailInfo:{}
+      detailInfo:{},
+      confirmIsShow:false,
+      collectOk:false,
+      collectText:'',
+      //是否已经收藏
+      isCollect:false
     }
+  },
+  computed:{
+    ...mapGetters({
+        userInfo:'getUserInfo'
+    })
   },
   beforeCreate() {
     console.log(this.$route.params.id)
@@ -74,6 +115,49 @@ export default {
         console.log(res.data)
       }
     })
+  },
+  created() {
+    //do something after creating vue instance
+    if(Boolean(this.userInfo.user_id)){
+      Api.checkCollect(this.userInfo.user_id,this.$route.params.id).then((res)=>{
+        if(res.status == 1){
+          this.isCollect = true
+        }else{
+          this.isCollect = false
+        }
+      })
+    }
+  },
+  methods: {
+    onCancel () {
+      console.log('on cancel')
+    },
+    onConfirm (msg) {
+      console.log('on confirm')
+      this.$router.push({path:'/login'})
+    },
+    onShow () {
+      console.log('onShow')
+    },
+    onHide () {
+      console.log('onHide')
+    },
+    collect(pos_id) {
+      //用户未登录
+      if(!Boolean(this.userInfo.user_id)){
+        this.confirmIsShow = true
+      }else{
+        Api.collectPos(this.userInfo.user_id,this.$route.params.id).then((res)=>{
+          if(res.status == 1){
+            this.collectOk = true
+            this.isCollect = true
+            this.collectText = res.message
+          }else{
+            this.collectText = res.message
+          }
+        })
+      }
+    }
   }
 }
 </script>
@@ -84,11 +168,9 @@ export default {
 .slide-enter-active, .slide-leave-active{
     transition: all 0.3s
 }
-
 .slide-enter, .slide-leave-to{
     transform: translate3d(100%, 0, 0)
 }
-
 .detail-moudle-item{
   width: 100%;
   overflow: hidden;
@@ -127,6 +209,12 @@ export default {
   margin-top: 11px;
   margin-right: 3px;
   fill:#999;
+}
+.position-name .is-collect{
+  color: #009ee5;
+}
+.position-name .is-collect svg{
+  fill:#009ee5;
 }
 .position-info .desc{
   width: 100%;
@@ -172,6 +260,13 @@ export default {
 }
 .company-desc p{
   color: #999;
+}
+.company-desc p.desc-text{
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 10px;
 }
 .company-info .right-icon{
   position: absolute;
@@ -234,5 +329,10 @@ export default {
     border:1px solid #F3EAC3;
     border-radius: 4px;
     color: #009ee5;
+}
+.btn{
+  padding:15px 10px;
+  box-sizing: border-box;
+  background: none;
 }
 </style>

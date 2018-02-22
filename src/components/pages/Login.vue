@@ -66,7 +66,8 @@ export default {
           cookie.set('user',JSON.stringify(res.data))
           this.setUserInfo({userInfo:res.data})
           setTimeout(()=>{
-            this.$router.push({path:'/'})
+            // this.$router.push({path:'/'})
+            history.go(-1)
           },2000)
         }else{
           this.isErr = true

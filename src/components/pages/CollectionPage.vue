@@ -1,28 +1,73 @@
 <template>
   <div class="user-collection-page">
-    <ul class="jobs-list">
-      <router-link tag="li" v-for="(item,index) in 5" :key="index" :to="{ path: 'posdetail', params: { id: 123 }}">
+    <ul class="jobs-list" v-if="List.length">
+      <router-link tag="li" v-for="(item,index) in List" :key="index" :to="{ name: 'posdetail', params: { id: item.pos_id }}">
         <div class="left-info">
-          <p class="job-name">建筑设计师{{index}}</p>
-          <p>广西一棵树装饰工程有限责任公司</p>
-          <p class="time">收藏日期：2018.02.05</p>
+          <p class="job-name">{{item.pos_name}}</p>
+          <p>{{item.comp_name}}</p>
+          <p class="time">收藏日期：{{item.collect_time}}</p>
         </div>
-        <div class="right-info">
+        <!-- <div class="right-info">
           <span :class="index>2?'isDelivery':''">{{index>2?'已投递':'未投递'}}</span>
-        </div>
+        </div> -->
+        <span @click.stop="cancelCollect(item.collect_id)" class="cancel-collect-btn"><x-icon type="ios-close-empty" size="30"></x-icon></span>
       </router-link>
     </ul>
+    <div class="empty" v-else>
+      <p>{{tip}}</p>
+    </div>
+    <toast v-model="isCancelOk" @on-hide="getCollectList()" type="success">{{ '恭喜，取消成功' }}</toast>
   </div>
 </template>
 <script>
 import JobList from '../common/JobList'
+import { Toast , cookie } from 'vux'
+import Api from '../../api'
+import { mapGetters , mapMutations} from 'vuex'
 export default {
   components: {
-    JobList
+    JobList,
+    Toast
   },
   data () {
     return {
-        List:[{},{}]
+        List:[],
+        tip:'目前暂无收藏数据！',
+        isCancelOk:false
+    }
+  },
+  computed:{
+    ...mapGetters({
+        userInfo:'getUserInfo'
+    })
+  },
+  created() {
+    //do something after creating vue instance
+    if(!Boolean(this.userInfo.user_id)){
+      this.List = []
+    }else{
+      this.getCollectList()
+    }
+  },
+  methods: {
+    //获取收藏列表
+    getCollectList() {
+      Api.getCollectList(this.userInfo.user_id).then((res)=>{
+        console.log(res.data)
+        if(res.status == 1){
+          this.List = res.data
+        }else{
+          this.List = []
+        }
+      })
+    },
+    cancelCollect(collect_id) {
+      Api.cancelCollect(collect_id).then((res)=>{
+        if(res.status == 1){
+          console.log(res)
+          this.isCancelOk = true
+        }
+      })
     }
   }
 }
@@ -41,6 +86,7 @@ export default {
   height: 82px;
   padding:10px;
   border-bottom: 1px solid #eee;
+  position: relative;
 }
 .jobs-list .left-info{
   flex: 3;
@@ -69,5 +115,14 @@ export default {
 }
 .right-info .isDelivery{
   color: red;
+}
+
+.cancel-collect-btn{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  padding:10px;
 }
 </style>

@@ -21,12 +21,12 @@
       </div>
     </div>
     <div class="key-history-list" v-if="(!searchList.length && !keyword)">
-      <p v-for="item in historyList" @click="searchByHis(item)">{{item}}</p>
+      <p v-for="item in historyList" @click="searchByHis(item)">{{item.keyword}}</p>
     </div>
     <div class="search-result-list" v-if="searchList.length">
-      <job-list v-if="typeVal === `找工作`" :data="searchList"></job-list>
-      <candidate-list v-else-if="typeVal === `找人才`" :data="searchList"></candidate-list>
-      <com-list v-else-if="typeVal === `找企业`" :data="searchList"></com-list>
+      <job-list v-if="type === `pos`" :data="searchList"></job-list>
+      <candidate-list v-else-if="type === `talent`" :data="searchList"></candidate-list>
+      <com-list v-else-if="type === `comp`" :data="searchList"></com-list>
     </div>
     <div v-if="!searchList.length && !historyList.length" class="search-result-list" style="background-color:#f0f2f5">
         <p style="height:50px;line-height:50px;font-size:14px;color:#666;text-align:center;">{{textTip}}</p>
@@ -113,6 +113,8 @@ export default {
     this.selectVal = this.typeVal
     this.type = 'pos'
     this.historyList = Boolean(cookie.get('keyList'))?JSON.parse(cookie.get('keyList')):[]
+
+    console.log(this.historyList)
     // console.log(this.historyList)
   },
   methods: {
@@ -141,6 +143,7 @@ export default {
           break;
       }
       this.updateSearchList({list:[]});
+      this.historyList = []
       this.keyword = ''
       this.results = []
     },
@@ -154,8 +157,9 @@ export default {
    getResult (val) {
      this.results = val ? getResult(this.keyword) : []
    },
-   searchByHis(key) {
-     this.keyword = key;
+   searchByHis(item) {
+     this.keyword = item.keyword;
+     this.type = item.type;
      this.onSubmit()
    },
    onSubmit (val) {
@@ -164,8 +168,10 @@ export default {
        position:'absolute',
        text: '正在搜索'
       })
-     this.historyList.push(this.keyword);
-     this.historyList =  new Set(this.historyList);
+    this.historyList = Boolean(cookie.get('keyList'))?JSON.parse(cookie.get('keyList')):[]
+     this.historyList.push({type:this.type,keyword:this.keyword});
+     // this.historyList =  new Set(this.historyList);
+     this.historyList = this.historyList.unique('keyword')
      this.historyList = JSON.stringify(this.historyList)
      cookie.set('keyList',this.historyList);
      this.updateSearchList({list:[]});
@@ -203,6 +209,31 @@ function getResult (val) {
   }
   return rs
 }
+
+Array.prototype.unique = function(key) {
+    var arr = this;
+    var n = [arr[0]];
+    for (var i = 1; i < arr.length; i++) {
+        if (key === undefined) {
+            if (n.indexOf(arr[i]) == -1) n.push(arr[i]);
+        } else {
+            inner: {
+                var has = false;
+                for (var j = 0; j < n.length; j++) {
+                    if (arr[i][key] == n[j][key]) {
+                        has = true;
+                        break inner;
+                    }
+                }
+            }
+            if (!has) {
+                n.push(arr[i]);
+            }
+        }
+    }
+    return n;
+}
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

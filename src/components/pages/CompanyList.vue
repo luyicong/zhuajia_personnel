@@ -21,7 +21,7 @@ export default {
     Api.getCompanyList().then((res)=>{
       console.log(res.data)
       if(res.status == 1){
-        this.companyList = res.data.data
+        this.companyList = res.data
       }
     })
   }

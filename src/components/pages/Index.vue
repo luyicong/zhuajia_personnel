@@ -38,12 +38,12 @@
                 <flexbox-item :span="1/4"><div class="cate-item"><span>BIM</span><p>建筑BIM类</p></div></flexbox-item> -->
           </flexbox>
         </div>
-        <div class="opt-btn">
+        <!--<div class="opt-btn">
             <div class="btn">
                 <img :src="require('../../assets/img/reload-icon.png')" width="18" height="18" alt="">
                 <span>换一批</span>
             </div>
-        </div>
+        </div>-->
       </div>
       <!--jobs/end-->
       <!--company/start-->
@@ -78,10 +78,10 @@
               </div>
               <div class="job-info">
                 <div class="job-want">求职意向：{{item.position}}</div>
-                <div class="job-opt">
+                <!--<div class="job-opt">
                   <p><span href="javascript:;">收藏</span></p>
                   <p><span href="javascript:;">查看</span></p>
-                </div>
+                </div>-->
               </div>
             </router-link>
           </ul>
@@ -311,7 +311,8 @@ export default {
   padding:10px;
   width: 100%;
   box-sizing: border-box;
-  min-height: 160px;
+  /* min-height: 160px; */
+  min-height: 124px;
 }
 .cate-list .cate-item{
   text-align: center;
