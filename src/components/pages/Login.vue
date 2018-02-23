@@ -50,9 +50,9 @@ export default {
   created() {
     //do something after creating vue instance
     console.log(md5('zxc123456'))
-    // if(!Boolean(this.userInfo.user_id)){
-    //   this.$router.push({path:'/'})
-    // }
+    if(Boolean(this.userInfo.user_id)){
+      this.$router.push({path:'/user'})
+    }
   },
   methods: {
     ...mapMutations({
@@ -63,11 +63,17 @@ export default {
         console.log(res)
         if(res.status == 1){
           this.isOk = true
+          if(!res.data.id) {
+            setTimeout(()=>{
+              this.$router.push({path:'/StoreResume',query:{user_id:res.data.user_id}})
+            },2000)
+            return
+          }
           cookie.set('user',JSON.stringify(res.data))
           this.setUserInfo({userInfo:res.data})
           setTimeout(()=>{
-            // this.$router.push({path:'/'})
-            history.go(-1)
+            this.$router.push({path:'/user'})
+            // history.go(-1)
           },2000)
         }else{
           this.isErr = true

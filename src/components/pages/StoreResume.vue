@@ -7,7 +7,7 @@
       <selector title="最高学历" placeholder="请选择最高学历" :options="['中专', '大专' , '本科','硕士','博士','博士后']" v-model="userInfo.maxedu"></selector>
       <x-input title="工作经验" placeholder="请选择工作经验" v-model="userInfo.workexp"></x-input>
       <x-input title="现居住地" placeholder="请填写现居住地" v-model="userInfo.nowaddress"></x-input>
-      <x-input title="邮箱" placeholder="请填写邮箱" v-model="userInfo.email"></x-input>
+      <!-- <x-input title="邮箱" placeholder="请填写邮箱" v-model="userInfo.email"></x-input> -->
       <x-input title="手机号码" placeholder="请填写手机号码" disabled v-model="userInfo.phone"></x-input>
     </group>
     <group label-width="4.5em" label-margin-right="2em" label-align="right">
@@ -59,7 +59,7 @@ export default {
         //邮箱
         email:'',
         //手机号
-        phone:'13838383388',
+        phone:'',
         //目前状态
         workstate:'',
         //工作性质
@@ -102,12 +102,35 @@ export default {
     },
     //更新简历
     upDateResume() {
+      this.userInfo.user_name = this.userInfo.user_name || ''
+      this.userInfo.age = this.userInfo.age || ''
+      this.userInfo.birthy = this.userInfo.birthy || ''
+      this.userInfo.email = this.userInfo.email || ''
+      this.userInfo.industry = this.userInfo.industry || ''
+      this.userInfo.jobtype = this.userInfo.jobtype || ''
+      this.userInfo.maxedu = this.userInfo.maxedu || ''
+      this.userInfo.nowaddress = this.userInfo.nowaddress || ''
+      this.userInfo.phone = this.userInfo.phone || ''
+      this.userInfo.position = this.userInfo.position || ''
+      this.userInfo.realname = this.userInfo.realname || ''
+      this.userInfo.salary = this.userInfo.salary || ''
+      this.userInfo.sex = this.userInfo.sex || ''
+      this.userInfo.user_name = this.userInfo.user_name || ''
+      this.userInfo.workarea = this.userInfo.workarea || ''
+      this.userInfo.workexp = this.userInfo.workexp || ''
+      this.userInfo.workstate = this.userInfo.workstate || ''
+      if(this.$route.query.user_id){
+        this.userInfo.user_id = this.$route.query.user_id
+      }
+
       Api.upDateResume(this.userInfo).then((res)=>{
         if(res.status == 1){
           this.isOk = true
           cookie.set('user',JSON.stringify(this.userInfo))
           this.setUserInfo({userInfo:this.userInfo})
-
+          setTimeout(()=>{
+            this.$router.push({path:'/user'})
+          },2000)
         }else{
             this.isErr = true
             this.errText = res.message

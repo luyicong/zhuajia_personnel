@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-  import { Group , XInput , XButton, Box , CheckIcon , Toast } from 'vux'
+  import { Group , XInput , XButton, Box , CheckIcon , Toast ,md5} from 'vux'
   import Api from '../../api'
   export default {
     components: {
@@ -57,14 +57,14 @@
               return false
             }
             // alert(this.userInfo)
-
+            this.userInfo.password = md5(this.userInfo.password)
             // return false
             Api.userRegist(this.userInfo).then((res)=>{
               console.log(res)
               if(res.status == 1){
                 this.isOk = true
                 setTimeout(()=>{
-                  this.$router.push('/login')
+                  this.$router.push({path:'/login',query:{user_id:res.data.user_id}})
                 },2000)
               }else{
                 this.isErr = true;

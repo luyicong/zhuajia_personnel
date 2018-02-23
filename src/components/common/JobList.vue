@@ -10,7 +10,7 @@
         </div>
         <div class="right-info">
           <p>{{item.sendtime}}</p>
-          <span>立即申请</span>
+          <span>立即投递</span>
         </div>
       </router-link>
     </ul>

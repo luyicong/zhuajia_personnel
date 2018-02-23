@@ -10,9 +10,9 @@
             <div class="left-info">
               <p class="user-name">{{item.realname}}</p>
               <p>
-                <span>{{item.sex}}</span>|<span>{{item.age}}</span>|<span>{{item.maxedu}}</span>|<span>不限</span>
+                <span>{{item.sex || '暂无'}}</span>|<span>{{item.maxedu || '暂无'}}</span>|<span>{{item.workexp || '暂无'}}</span>
               </p>
-              <p>意向地区：{{item.workarea}}</p>
+              <p>意向地区：{{item.workarea || '暂无'}}</p>
             </div>
           </div>
           <div class="top-right">

@@ -4,7 +4,7 @@
       <div class="user-head-img">
         <img :src="defaultImg" alt="">
       </div>
-      <p class="user-name">{{ userInfo.realname }}</p>
+      <p class="user-name">{{ userInfo.realname || '暂未填写' }}</p>
       <p class="user-account">{{ userInfo.user_name }}</p>
     </div>
     <div class="user-center-nav">
@@ -14,13 +14,16 @@
         <li>浏览记录</li>
         <li>设置</li>
       </ul> -->
-      <group>
+      <div class="tip">
+        <p></p>
+      </div>
+      <group :title="resumeTipText">
         <cell :title="`我的简历`" :link="{path:'/storeresume'}"></cell>
         <cell :title="`投递记录`" :link="{path:'/deliverylist'}"></cell>
         <cell :title="`我的收藏`" :link="{path:'/collectionpage'}"></cell>
         <!-- <cell :title="`浏览记录`" :link="{path:'/demo'}"></cell> -->
         <cell :title="`修改密码`" :link="{path:'/updatepwd'}"></cell>
-        <cell :title="`个人资料`" :link="{path:'/userinfo'}"></cell>
+        <!--<cell :title="`个人资料`" :link="{path:'/userinfo'}"></cell>-->
       </group>
       <box gap="20px 10px">
         <x-button type="warn" @click.native="exitFn()">退出登录</x-button>
@@ -42,6 +45,7 @@ import { mapGetters , mapMutations} from 'vuex'
       return {
         defaultImg:require('@/assets/img/no_photo_male.png'),
         // userInfo:{}
+        resumeTipText:''
       }
     },
     computed:{
@@ -50,9 +54,14 @@ import { mapGetters , mapMutations} from 'vuex'
       })
     },
     created() {
+      console.log(this.userInfo)
         if(!Boolean(this.userInfo.user_id)){
           this.$router.push({path:'/'})
         }
+        if(!this.userInfo.position || !this.userInfo.sex || !this.userInfo.realname || !this.userInfo.position){
+          this.resumeTipText = '你的简历还没完善，否则不能展示你的求职信息哦'
+        }
+
       //do something after creating vue instance
       // console.log(JSON.parse(cookie.get('user')))
       // this.userInfo = JSON.parse(cookie.get('user'))

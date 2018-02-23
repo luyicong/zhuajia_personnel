@@ -40,10 +40,10 @@
         <div class="moudle-common-title">联系方式</div>
         <div class="info-moudle-content">
           <p>
-            <span lass="key">手机：</span><span class="val">{{info.phone || '暂无填写'}}</span><span class="nologin-tip">（登录后查看）</span>
+            <span lass="key">手机：</span><span class="val">{{info.phone || '暂无填写'}}</span><!--<span class="nologin-tip">（登录后查看）</span>-->
           </p>
           <p>
-            <span lass="key">邮箱：</span><span class="val">{{info.email || '暂无填写'}}</span><span class="nologin-tip">（登录后查看） </span>
+            <span lass="key">邮箱：</span><span class="val">{{info.email || '暂无填写'}}</span><!--<span class="nologin-tip">（登录后查看） </span>-->
           </p>
         </div>
       </div>

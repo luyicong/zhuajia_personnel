@@ -2,7 +2,8 @@ import axios from 'axios'
 
 // axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-const baseUrl = 'http://www.mytalent.com/api/v1'
+// const baseUrl = 'http://www.mytalent.com/api/v1'
+const baseUrl = 'http://talent.yoho167.com/api/v1'
 
 export default {
   //获取首页数据
@@ -109,6 +110,12 @@ export default {
   //获取用户投递列表
   getDeliveryList(user_id) {
     return axios.get(`${baseUrl}/deliveryList/${user_id}`).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //取消某职位投递
+  cancelDelivery(d_id) {
+    return axios.get(`${baseUrl}/cancelDelivery?d_id=${d_id}`).then((res)=>{
       return Promise.resolve(res.data)
     })
   },

@@ -10,13 +10,14 @@
         <!-- <div class="right-info">
           <span :class="index>2?'isDelivery':''">{{index>2?'已投递':'未投递'}}</span>
         </div> -->
-        <span @click.stop="cancelCollect(item.collect_id)" class="cancel-collect-btn"><x-icon type="ios-close-empty" size="30"></x-icon></span>
+        <span @click.stop="cancelDelivery(item.delivery_id)" class="cancel-collect-btn"><x-icon type="ios-close-empty" size="30"></x-icon></span>
       </router-link>
     </ul>
     <div class="empty" v-else>
       <p>{{tip}}</p>
     </div>
-    <toast v-model="isCancelOk" @on-hide="getCollectList()" type="success">{{ '恭喜，取消成功' }}</toast>
+    <toast v-model="isCancelOk" @on-hide="getDeliveryList()" type="success">{{ tipTip }}</toast>
+    <toast v-model="isCancelErr" type="cancel">{{tipTip}}</toast>
   </div>
 </template>
 <script>
@@ -33,7 +34,12 @@ export default {
     return {
         List:[],
         tip:'目前暂投递职位！',
-        isCancelOk:false
+        //取消成功
+        isCancelOk:false,
+        //操作提示
+        tipTip:'',
+        //取消失败
+        isCancelErr:false
     }
   },
   computed:{
@@ -50,7 +56,7 @@ export default {
     }
   },
   methods: {
-    //获取收藏列表
+    //获取投递列表
     getDeliveryList() {
       Api.getDeliveryList(this.userInfo.user_id).then((res)=>{
         console.log(res.data)
@@ -61,12 +67,16 @@ export default {
         }
       })
     },
-    cancelCollect(collect_id) {
-      Api.cancelCollect(collect_id).then((res)=>{
+    //取消投递
+    cancelDelivery(delivery_id) {
+      Api.cancelDelivery(delivery_id).then((res)=>{
         if(res.status == 1){
           console.log(res)
           this.isCancelOk = true
+        }else{
+          this.isCancelErr = true
         }
+        this.tipTip = res.message
       })
     }
   }
@@ -75,7 +85,7 @@ export default {
 <style lang="less" scoped>
 .user-collection-page{
   width: 100%;
-  background:#fff;
+  // background:#fff;
 }
 .jobs-list{
   width: 100%;
@@ -87,6 +97,7 @@ export default {
   padding:10px;
   border-bottom: 1px solid #eee;
   position: relative;
+  background:#fff;
 }
 .jobs-list .left-info{
   flex: 3;
@@ -124,5 +135,11 @@ export default {
   width: 30px;
   height: 30px;
   padding:10px;
+}
+.empty{
+  padding:10px 0;
+  text-align: center;
+  // background-color: #f0f2f5;
+  color: #666;
 }
 </style>

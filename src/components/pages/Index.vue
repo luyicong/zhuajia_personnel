@@ -22,21 +22,17 @@
           <!--<router-link tag="span" :to="{ path:'catelist'}">全部&nbsp》</router-link>-->
         </div>
         <div class="common-moudle-list-wrap">
-          <flexbox :gutter="0" wrap="wrap" class="cate-list">
+          <flexbox :gutter="0" wrap="wrap" class="cate-list" v-if="cateList.length">
                 <flexbox-item v-for="item in cateList" :key="item.cate_id" :span="1/4">
                   <router-link tag="div" class="cate-item" :to="{ path: 'positionlist',query:{ cate_id: item.cate_id,cate_name: item.cate_name}}">
                     <span>{{item.cate_name.slice(2,4)}}</span>
                     <p>{{item.cate_name}}</p>
                   </router-link>
                 </flexbox-item>
-                <!-- <flexbox-item :span="1/4"><div class="cate-item"><span>勘察</span><p>勘察设计类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span>建筑</span><p>建筑设计类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span>造价</span><p>工程造价类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span>监理</span><p>工程监理类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span>施工</span><p>工程施工类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span>技工</span><p>建筑技工类</p></div></flexbox-item>
-                <flexbox-item :span="1/4"><div class="cate-item"><span>BIM</span><p>建筑BIM类</p></div></flexbox-item> -->
           </flexbox>
+          <div v-else class="loading-moudle">
+            <spinner type="ios"></spinner>
+          </div>
         </div>
         <!--<div class="opt-btn">
             <div class="btn">
@@ -50,7 +46,10 @@
       <div class="common-moudle-wrap">
         <div class="common-moudle-title">建筑名企<router-link tag="span" :to="{ path:'companylist'}">全部&nbsp》</router-link></div>
         <div class="common-moudle-list-wrap">
-          <com-list :data="companyList"></com-list>
+          <com-list v-if="companyList.length" :data="companyList"></com-list>
+          <div v-else class="loading-moudle">
+            <spinner type="ios"></spinner>
+          </div>
         </div>
         <!-- <div class="opt-btn">
             <div class="btn">
@@ -64,7 +63,7 @@
       <div class="common-moudle-wrap">
         <div class="common-moudle-title">建筑求职信息<router-link tag="span" :to="{ path:'resume'}">全部&nbsp》</router-link></div>
         <div class="common-moudle-list-wrap" style="padding:0">
-          <ul class="candidate-list">
+          <ul class="candidate-list" v-if="resumeList.length">
             <router-link tag="li" v-for="(item,index) in resumeList" :key="item.id" :to="{ name: 'ResumeDetail', params: { id: item.id }}">
               <div class="user-info">
                 <div class="head-img">
@@ -85,6 +84,9 @@
               </div>
             </router-link>
           </ul>
+          <div v-else class="loading-moudle">
+            <spinner type="ios"></spinner>
+          </div>
         </div>
         <!-- <div class="opt-btn">
             <div class="btn">
@@ -99,7 +101,10 @@
       <div class="common-moudle-wrap">
         <div class="common-moudle-title">建筑招聘信息<router-link tag="span" :to="{ path:'positionlist'}">全部&nbsp》</router-link></div>
         <div class="common-moudle-list-wrap" style="padding:0">
-          <job-list :data="positionList"></job-list>
+          <job-list v-if="positionList.length" :data="positionList"></job-list>
+          <div v-else class="loading-moudle">
+            <spinner type="ios"></spinner>
+          </div>
         </div>
       </div>
       <!--hots-jobs/end-->
@@ -111,7 +116,7 @@
 </template>
 
 <script>
-import { Swiper , Flexbox , FlexboxItem , cookie} from 'vux'
+import { Swiper , Flexbox , FlexboxItem , cookie , Spinner } from 'vux'
 import ComList from '../common/ComList'
 import JobList from '../common/JobList'
 import Api from '../../api'
@@ -122,7 +127,8 @@ export default {
     Flexbox,
     FlexboxItem,
     JobList,
-    ComList
+    ComList,
+    Spinner
   },
   name: 'index',
   data () {
@@ -496,5 +502,10 @@ export default {
 }
 .page-content{
 
+}
+.loading-moudle{
+  width: 100%;
+  text-align: center;
+  margin-top:30px;
 }
 </style>

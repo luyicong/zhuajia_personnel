@@ -75,7 +75,7 @@ export default {
 <style lang="less" scoped>
 .user-collection-page{
   width: 100%;
-  background:#fff;
+  // background:#fff;
 }
 .jobs-list{
   width: 100%;
@@ -87,6 +87,7 @@ export default {
   padding:10px;
   border-bottom: 1px solid #eee;
   position: relative;
+  background:#fff;
 }
 .jobs-list .left-info{
   flex: 3;
@@ -124,5 +125,11 @@ export default {
   width: 30px;
   height: 30px;
   padding:10px;
+}
+.empty{
+  padding:10px 0;
+  text-align: center;
+  // background-color: #f0f2f5;
+  color: #666;
 }
 </style>

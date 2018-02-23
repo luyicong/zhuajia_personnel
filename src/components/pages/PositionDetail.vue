@@ -57,8 +57,8 @@
         </div>
       </div>
       <div v-if="isLoad" class="detail-moudle-item btn">
-        <x-button v-if="isDelivery" disabled>已申请</x-button>
-        <x-button v-else @click.native="deliveryPos()" type="primary">立即申请</x-button>
+        <x-button v-if="isDelivery" disabled>已投递</x-button>
+        <x-button v-else @click.native="deliveryPos()" type="primary">立即投递</x-button>
       </div>
       <div v-transfer-dom>
         <confirm v-model="confirmIsShow"
