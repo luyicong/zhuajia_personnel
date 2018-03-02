@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 import Vuex from 'vuex'
 
-import { cookie } from 'vux'
+import { cookie , WechatPlugin} from 'vux'
 
 import Api from '../api'
 
@@ -10,11 +10,15 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({}) // 这里你可能已经有其他 module
 
-store.registerModule('vux', {
+store.registerModule('common', {
   state: {
     demoScrollTop: 0,
     isLoading: false,
-    direction: 'forward'
+    direction: 'forward',
+    isShow:true,
+    //是否是微信
+    // is_in_weixin: is_weixn()
+
   },
   mutations: {
     updateDemoPosition (state, payload) {
@@ -25,6 +29,9 @@ store.registerModule('vux', {
     },
     updateDirection (state, payload) {
       state.direction = payload.direction
+    },
+    upDateIsShow(state,payload) {
+      state.isShow = payload.isShow
     }
   },
   actions: {

@@ -12,10 +12,9 @@
            @on-submit="onSubmit"
            @on-focus="onFocus"
            @on-cancel="onCancel"
-           :results="results"
            v-model="keyword"
            position="absolute"
-          auto-scroll-to-top top="46px"
+           auto-scroll-to-top top="46px"
            ref="search"
            ></search>
       </div>
@@ -147,8 +146,8 @@ export default {
       this.keyword = ''
       this.results = []
     },
-    setFocus () {
-      this.$refs.search.setFocus()
+    setBlur () {
+      this.$refs.search.setBlur()
     },
     resultClick (item) {
      // window.alert('you click the result item: ' + JSON.stringify(item))
@@ -163,6 +162,7 @@ export default {
      this.onSubmit()
    },
    onSubmit (val) {
+     this.setBlur()
      // window.alert('on submit' + val)
      this.$vux.loading.show({
        position:'absolute',

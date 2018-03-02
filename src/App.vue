@@ -11,14 +11,14 @@
       <x-icon type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;left:-3px;"></x-icon>
     </span> -->
     </x-header>
-    <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px">
+    <view-box ref="viewBox" body-padding-top="46px" :body-padding-bottom="view_body_pb">
       <transition
       @after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')"
       :name="viewTransition" :css="!!direction">
           <router-view class="router-view"></router-view>
       </transition>
     </view-box>
-    <tabbar style="position:fixed;max-width:540px;">
+    <tabbar style="position:fixed;max-width:540px;" v-if="isShowFoot">
       <tabbar-item :selected="$route.path === '/'" link="/">
         <!-- <img slot="icon" src="../assets/demo/icon_nav_button.png"> -->
         <i slot="icon" class="iconfont icon-home"></i>
@@ -45,7 +45,7 @@
 
 <script>
 import { Loading , XHeader , ViewBox , Tabbar, TabbarItem , Drawer } from 'vux'
-import { mapState } from 'vuex'
+import { mapState , mapMutations} from 'vuex'
 export default {
   components:{ Loading , XHeader , ViewBox , Tabbar, TabbarItem , Drawer},
   name: 'app',
@@ -55,19 +55,31 @@ export default {
       showMode: 'push',
       showModeValue: 'push',
       showPlacement: 'left',
-      showPlacementValue: 'left'
+      showPlacementValue: 'left',
+      view_body_pb:'55px'
     }
   },
   computed: {
     ...mapState({
-      isLoading: state => state.vux.isLoading,
-      direction: state => state.vux.direction,
+      isLoading: state => state.common.isLoading,
+      direction: state => state.common.direction,
       user: state => state.user.userInfo,
+      isShowFoot: state => state.common.isShow,
+      isInWeixin: state => state.common.is_in_weixin,
     }),
     leftOptions () {
       return {
         showBack: (this.$route.path !== '/' && this.$route.path !== '/positionlist' && this.$route.path !== '/resume' && this.$route.path !== '/user')
       }
+    },
+    is_weixn () {
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {
+            // alert('是微信webview打开')
+            return true;
+        } else {
+            return false;
+        }
     },
     headerTransition () {
       if (!this.direction) return ''
@@ -80,7 +92,19 @@ export default {
     title () {
       switch (this.$route.path) {
         case '/':
-          return '首页'
+          this.view_body_pb = '55px'
+          this.upDateIsShow({isShow:true});
+          return '筑加人才网'
+          break;
+        case '/cooperation':
+          this.view_body_pb = '0px'
+          this.upDateIsShow({isShow:false});
+          return '加盟合作'
+          break;
+        case '/contact':
+          this.view_body_pb = '0px'
+          this.upDateIsShow({isShow:false});
+          return '联系我们'
           break;
         case '/search':
           return '搜索'
@@ -103,10 +127,12 @@ export default {
         case '/userinfo':
           return '个人资料'
           break;
-          case '/collectionpage':
-            return '我的收藏'
-            break;
+        case '/collectionpage':
+          return '我的收藏'
+          break;
         case '/posdetail':
+          console.log('5555555')
+          this.upDateIsShow({isShow:false});
           return '详情'
           break;
         case '/companydetail':
@@ -122,6 +148,8 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({upDateIsShow:'upDateIsShow'}),
+
     onShowModeChange (val) {
       /** hide drawer before changing showMode **/
       this.drawerVisibility = false

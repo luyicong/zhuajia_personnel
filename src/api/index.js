@@ -2,8 +2,8 @@ import axios from 'axios'
 
 // axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-// const baseUrl = 'http://www.mytalent.com/api/v1'
-const baseUrl = 'http://talent.yoho167.com/api/v1'
+const baseUrl = 'http://www.mytalent.com/api/v1'
+// const baseUrl = 'http://talent.yoho167.com/api/v1'
 
 export default {
   //获取首页数据
@@ -66,6 +66,12 @@ export default {
   // 用户注册
   userLogin(data) {
     return axios.get(`${baseUrl}/login`,{params:data}).then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  //用户修改密码
+  upDatePwd(data) {
+    return axios.post(`${baseUrl}/updatepwd`,data).then((res)=>{
       return Promise.resolve(res.data)
     })
   },

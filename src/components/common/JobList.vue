@@ -74,7 +74,7 @@ export default {
 }
 
 .right-info p{
-  height: 40px;
+  height: 50px;
   color: #ff552e;
 }
 .right-info span{

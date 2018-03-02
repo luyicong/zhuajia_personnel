@@ -12,8 +12,10 @@
       <!--search/end-->
       <!--合作人口/start-->
       <div class="cooperation-entry">
-        <span>加盟合作</span>
-        <span>联系我们</span>
+        <!-- <span>加盟合作</span> -->
+        <router-link tag="span" :to="{ path:'cooperation'}">加盟合作</router-link>
+        <router-link tag="span" :to="{ path:'contact'}">联系我们</router-link>
+        <!-- <span>联系我们</span> -->
       </div>
       <!--合作人口/end-->
       <!--jobs/start-->
@@ -110,7 +112,7 @@
       <!--hots-jobs/end-->
     </div>
     <div class="footer">
-      页面底部
+      <p>桂ICP备16008233号-1 © 2015-2017 筑加网版权所有</p>
     </div>
   </div>
 </template>
@@ -144,19 +146,19 @@ export default {
       // companyList:[{},{},{},{}],
       bannerList:[
         {
-          url: 'www.baidu.com',
-          img: 'https://static.vux.li/demo/1.jpg',
-          fallbackImg: 'https://static.vux.li/demo/3.jpg'
+          url: '/#/cooperation',
+          img: require('@/assets/img/1.png'),
+          fallbackImg: require('@/assets/img/3.jpg')
         },
         {
           url: 'javascript:',
-          img: 'https://static.vux.li/demo/2.jpg',
-          fallbackImg: 'https://static.vux.li/demo/3.jpg'
+          img: require('@/assets/img/2.jpg'),
+          fallbackImg: require('@/assets/img/3.jpg')
         },
         {
           url: 'javascript:',
-          img: 'https://static.vux.li/demo/3.jpg',
-          fallbackImg: 'https://static.vux.li/demo/3.jpg'
+          img: require('@/assets/img/3.jpg'),
+          fallbackImg: require('@/assets/img/3.jpg')
         }
       ],
       loadMoreText:'加载更多',
@@ -495,10 +497,15 @@ export default {
 }
 .footer{
   height: 60px;
-  /*padding-bottom: 50px;*/
-  /*background: #ddd;*/
   text-align: center;
   line-height: 60px;
+  padding:0 10px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -o-ms-sizing: border-box;
+  font-size: 13px;
 }
 .page-content{
 
@@ -508,4 +515,6 @@ export default {
   text-align: center;
   margin-top:30px;
 }
+
+
 </style>

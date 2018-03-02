@@ -63,7 +63,6 @@ Vue.use(LoadingPlugin)
 //   store.commit('UPDATE_LOADING', {isLoading: false})
 // })
 
-
 // simple history management
 const history = window.sessionStorage
 history.clear()

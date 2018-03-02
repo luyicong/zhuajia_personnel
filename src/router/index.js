@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Index from '@/components/pages/Index'
 import Search from '@/components/pages/Search'
 import User from '@/components/pages/User'
+import Cooperation from '@/components/pages/Cooperation'
+import Contact from '@/components/pages/Contact'
 // import Detail from '@/components/pages/Detail'
 
 Vue.use(Router)
@@ -16,6 +18,18 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index
+    },
+    //加盟合作页面
+    {
+      path: '/cooperation',
+      name: 'cooperation',
+      component: Cooperation
+    },
+    //联系我们页面
+    {
+      path: '/contact',
+      name: 'contact',
+      component: Contact
     },
     //求职列表
     {

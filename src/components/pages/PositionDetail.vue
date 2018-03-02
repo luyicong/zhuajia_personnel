@@ -17,12 +17,12 @@
         <div class="info-item desc">
           <flexbox :gutter="0" wrap="wrap" class="cate-list">
                 <flexbox-item :span="1/3"><p><span class="key">薪资：</span><span class="salary">{{detailInfo.pos_salary}}</span></p></flexbox-item>
-                <flexbox-item :span="1/3"><p><span class="key">地点：</span><span>{{detailInfo.work_address}}</span></p></flexbox-item>
-                <flexbox-item :span="1/3"><p><span class="key">性别：</span><span>{{detailInfo.pos_sex}}</span></p></flexbox-item>
                 <flexbox-item :span="1/3"><p><span class="key">学历：</span><span>{{detailInfo.pos_edu}}</span></p></flexbox-item>
-                <flexbox-item :span="1/3"><p><span class="key">性质：</span><span>{{detailInfo.pos_type}}</span></p></flexbox-item>
+                <flexbox-item :span="1/3"><p><span class="key">性别：</span><span>{{detailInfo.pos_sex}}</span></p></flexbox-item>
                 <flexbox-item :span="1/3"><p><span class="key">经验：</span><span>{{detailInfo.pos_exp}}</span></p></flexbox-item>
+                <flexbox-item :span="1/3"><p><span class="key">性质：</span><span>{{detailInfo.pos_type}}</span></p></flexbox-item>
                 <flexbox-item :span="1/3"><p><span class="key">年龄：</span><span>{{detailInfo.pos_age}}</span></p></flexbox-item>
+                <flexbox-item :span="1/3" style="flex: 0 0 100%"><p><span class="key">地点：</span><span>{{detailInfo.work_address}}</span></p></flexbox-item>
           </flexbox>
           <p style="color:#999;">更新于：{{detailInfo.sendtime}}</p>
         </div>
