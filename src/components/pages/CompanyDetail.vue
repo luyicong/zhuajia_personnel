@@ -63,6 +63,7 @@
 <script>
 import { Flexbox , FlexboxItem} from 'vux'
 import JobList from '../common/JobList'
+import { mapGetters , mapMutations} from 'vuex'
 import Api from '../../api'
 export default {
   components: {
@@ -79,12 +80,21 @@ export default {
       // jobList:[{},{},{},{},{},{},{},{},{},{}]
     }
   },
+  computed:{
+    ...mapGetters({
+        userInfo:'getUserInfo'
+    })
+  },
   beforeCreate() {
     //do something before creating vue instance
     Api.getCompanyDetailById(this.$route.params.id).then((res)=>{
       // console.log(res.data)
       if(res.status == 1){
         this.companyInfo = res.data
+        if(!this.userInfo.user_name){
+            this.companyInfo.comp_phone = this.companyInfo.comp_phone.substr(0,3)+"*****"+this.companyInfo.comp_phone.substr(8);
+            this.companyInfo.comp_email = this.companyInfo.comp_email.substr(0,3)+"*********";
+        }
         this.posList = res.data.posList
       }
     })

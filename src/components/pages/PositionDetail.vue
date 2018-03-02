@@ -122,6 +122,10 @@ export default {
     Api.getPosDetailById(this.$route.params.id).then((res)=>{
       if(res.status == 1){
         this.detailInfo = res.data
+        if(!this.userInfo.user_name){
+          this.detailInfo.comp_phone = this.detailInfo.comp_phone.substr(0,3)+"*****"+this.detailInfo.comp_phone.substr(8);
+            this.detailInfo.comp_email = this.detailInfo.comp_email.substr(0,3)+"*********";
+        }
         this.isLoad = true
         console.log(res.data)
       }
@@ -161,6 +165,14 @@ export default {
     },
     onHide () {
       console.log('onHide')
+    },
+    //是否显示完整phone
+    showPhone () {
+      if(this.userInfo.user_name){
+        return this.detailInfo.comp_phone
+      }else{
+        return this.detailInfo.comp_phone.substr(0,3)+"****"+this.detailInfo.comp_phone.substr(7);
+      }
     },
     //申请职位
     deliveryPos () {
