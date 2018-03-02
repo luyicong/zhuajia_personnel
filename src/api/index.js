@@ -2,8 +2,18 @@ import axios from 'axios'
 
 // axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-const baseUrl = 'http://www.mytalent.com/api/v1'
+// const baseUrl = 'http://www.mytalent.com/api/v1'
 // const baseUrl = 'http://talent.yoho167.com/api/v1'
+
+const debug = process.env.NODE_ENV !== 'production'
+
+let baseUrl = ''
+
+if(debug){
+  baseUrl = 'http://www.mytalent.com/api/v1'
+}else {
+  baseUrl = 'http://talent.yoho167.com/api/v1'
+}
 
 export default {
   //获取首页数据

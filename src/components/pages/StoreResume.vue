@@ -7,8 +7,8 @@
       <selector title="最高学历" placeholder="请选择最高学历" :options="['中专', '大专' , '本科','硕士','博士','博士后']" v-model="userInfo.maxedu"></selector>
       <x-input title="工作经验" placeholder="请选择工作经验" v-model="userInfo.workexp"></x-input>
       <x-input title="现居住地" placeholder="请填写现居住地" v-model="userInfo.nowaddress"></x-input>
-      <!-- <x-input title="邮箱" placeholder="请填写邮箱" v-model="userInfo.email"></x-input> -->
-      <x-input title="手机号码" placeholder="请填写手机号码" disabled v-model="userInfo.phone"></x-input>
+      <x-input :title="(userInfo.user_name.indexOf('@')!=-1)?'邮箱':'手机号'" :placeholder="(userInfo.user_name.indexOf('@')!=-1)?'邮箱':'手机号'" disabled v-model="userInfo.user_name"></x-input>
+      <!-- <x-input v-else title="邮箱" placeholder="请填写邮箱" v-model="userInfo.email"></x-input> -->
     </group>
     <group label-width="4.5em" label-margin-right="2em" label-align="right">
       <selector title="目前状态" placeholder="请选择目前状态"
