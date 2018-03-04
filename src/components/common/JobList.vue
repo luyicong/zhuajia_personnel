@@ -9,7 +9,7 @@
           <p>{{item.comp_name}}</p>
         </div>
         <div class="right-info">
-          <p>{{item.sendtime}}</p>
+          <p :style="'hei'">{{item.sendtime}}</p>
           <span>立即投递</span>
         </div>
       </router-link>
@@ -48,7 +48,7 @@ export default {
   border-bottom: 1px solid #eee;
 }
 .jobs-list li.small_h{
-  height: 66px;
+  height: 70px;
 }
 .jobs-list .left-info{
   flex: 3;
