@@ -36,7 +36,7 @@
       </tabbar-item>
       <tabbar-item :selected="$route.path === '/user'" :link="Boolean(this.user.user_id)?`/user`:`/login`">
         <!-- <img slot="icon" src="../assets/demo/icon_nav_article.png"> -->
-        <i slot="icon" class="iconfont icon-jobtitle"></i>
+        <i slot="icon" class="iconfont icon-user"></i>
         <span slot="label">个人中心</span>
       </tabbar-item>
     </tabbar>
