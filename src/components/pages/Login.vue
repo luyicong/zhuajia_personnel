@@ -17,6 +17,11 @@
       <x-button type="primary" @click.native="Login()">登录</x-button>
       <x-button :link="'/register'">立即注册</x-button>
     </box>
+
+    <div class="test_acount">
+      <p>测试账号：18376640435</p>
+      <p>测试密码：88888888</p>
+    </div>
     <toast v-model="isOk" type="success">{{ '恭喜，登录成功' }}</toast>
     <toast v-model="isErr" type="warn">{{ errText }}</toast>
   </div>
@@ -85,6 +90,14 @@ export default {
 }
 </script>
 <style scoped>
+.test_acount{
+  padding: 20px 10px;
+}
+.test_acount p{
+  height: 40px;
+  line-height: 40px;
+  color: #666;
+}
 .login-wrap{
     padding-top: 20px;
 }

@@ -8,7 +8,7 @@
         </div>
         <div class="header-bottom">
           <p><strong>{{info.realname}}</strong></p>
-          <p><span>{{info.sex}}</span>|<span>{{info.age}}</span>|<span>{{info.maxedu}}</span>|<span>{{info.workexp}}工作经验</span></p>
+          <p><span>{{info.sex}}</span>|<span>{{info.maxedu}}</span>|<span>{{info.workexp}}工作经验</span></p>
         </div>
       </div>
       <div class="resume-info-moudle job-want">
