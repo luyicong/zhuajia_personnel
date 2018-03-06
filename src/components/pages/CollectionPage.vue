@@ -13,7 +13,10 @@
         <span @click.stop="cancelCollect(item.collect_id)" class="cancel-collect-btn"><x-icon type="ios-close-empty" size="30"></x-icon></span>
       </router-link>
     </ul>
-    <div class="empty" v-else>
+    <p style="text-align:center;margin-top:50px;" v-if="(!List.length && !isLoad)">
+      <inline-loading></inline-loading><span style="vertical-align:middle;display:inline-block;font-size:14px;">&nbsp;&nbsp;加载中</span>
+    </p>
+    <div class="empty" v-if="(!List.length && isLoad)">
       <p>{{tip}}</p>
     </div>
     <toast v-model="isCancelOk" @on-hide="getCollectList()" type="success">{{ '恭喜，取消成功' }}</toast>
@@ -21,17 +24,20 @@
 </template>
 <script>
 import JobList from '../common/JobList'
-import { Toast , cookie } from 'vux'
+import { Toast , cookie ,InlineLoading} from 'vux'
 import Api from '../../api'
 import { mapGetters , mapMutations} from 'vuex'
 export default {
   components: {
     JobList,
-    Toast
+    Toast,
+    InlineLoading
   },
   data () {
     return {
         List:[],
+        //是否已经加载完成
+        isLoad:false,
         tip:'目前暂无收藏数据！',
         isCancelOk:false
     }
@@ -59,6 +65,7 @@ export default {
         }else{
           this.List = []
         }
+        this.isLoad = true
       })
     },
     cancelCollect(collect_id) {

@@ -42,7 +42,7 @@ export default {
   data: () => ({
     isAutoLogin:true,
     user_name:'18376640435',
-    password:'zxc123456',
+    password:'88888888',
     isOk:false,
     isErr:false,
     errText:''
