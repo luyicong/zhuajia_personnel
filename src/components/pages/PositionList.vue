@@ -5,10 +5,10 @@
         <x-icon class="ios-close" type="ios-close" size="22" @click="closeCate()"></x-icon>
       </div>
       <job-list :data="positionList"></job-list>
-      <p style="text-align:center;margin-top:50px;" v-if="(!positionList.length && isLoad)">
+      <p style="text-align:center;margin-top:50px;" v-if="!positionList.length">
         <inline-loading></inline-loading><span style="vertical-align:middle;display:inline-block;font-size:14px;">&nbsp;&nbsp;加载中</span>
       </p>
-      <div v-if="(!positionList.length && !isLoad)" class="empty">
+      <div v-if="(!positionList.length && isLoad)" class="empty">
         暂无职位数据
       </div>
       <loading-more v-if="positionList.length" :isLoad="isLoad" :text="text" @loadMore="getList()"></loading-more>
@@ -30,42 +30,25 @@ export default {
   data () {
     return {
       positionList:[],
-      isLoad:true,
+      isLoad:false,
       nowPage:1,
       text:'加载中',
       isErr:false,
-      err:'网络出错,稍后重试！'
+      err:'网络出错,稍后重试！',
+      mescroll:null
     }
   },
   beforeCreate() {
-    // Api.getPositionList().then((res)=>{
-    //   if(res.status == 1){
-    //     this.positionList = res.data
-    //   }
-    // })
+    Api.getPositionList().then((res)=>{
+      if(res.status == 1){
+        this.positionList = res.data
+      }
+    })
   },
   computed:{
     isShowErrToast() {
       return this.err?true:false
     }
-  },
-  created() {
-    console.log('121212')
-    // console.log(this.$route.query.cate_id)
-    this.isLoad = true
-    Api.getPositionList(this.$route.query.cate_id?this.$route.query.cate_id:'',this.nowPage).then((res)=>{
-      if(res.status == 1){
-        if(res.data.length){
-          this.positionList = res.data
-        }else{
-          this.positionList = []
-        }
-      }
-      console.log('3333333')
-
-      this.isLoad = false
-    })
-    // this.getList()
   },
   methods: {
     getList() {
@@ -100,9 +83,6 @@ export default {
 }
 </script>
 <style scoped>
-.jobs-list-page{
-  /* background-color: #fff; */
-}
 .empty{
     height: 50px;
     line-height: 50px;
@@ -138,39 +118,5 @@ export default {
   top: 6px;
   right: 5px;
 }
-/* .job-list{
-  width: 100%;
-  overflow: hidden;
-}
-.job-list li{
-  display: flex;
-  padding:10px;
-  box-sizing: border-box;
-  border-bottom: 1px solid #eee;
-  color: #777;
-  font-size: 13px;
-}
-.job-list li p{
-  width: 100%;
-  height: 26px;
-  line-height: 26px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.job-list li .left-info{
-  flex: 3;
-}
-.job-list li .right-info{
-  flex: 1;
-  text-align: right;
-}
-.left-info p.job-name{
-  color: #333;
-  font-size: 16px;
-}
-.right-info .salary{
-  color: #ff552e;
-  font-size: 16px;
-} */
+
 </style>

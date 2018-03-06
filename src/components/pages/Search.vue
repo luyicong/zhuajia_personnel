@@ -13,7 +13,6 @@
            @on-focus="onFocus"
            @on-cancel="onCancel"
            v-model="keyword"
-           position="absolute"
            auto-scroll-to-top top="46px"
            ref="search"
            ></search>

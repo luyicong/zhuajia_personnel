@@ -1,9 +1,12 @@
 <template>
   <div class="resume-list-wrap">
     <candidate-list :data="resumeList"></candidate-list>
-    <p style="text-align:center;margin-top:50px;" v-if="(!resumeList.length && isLoad)">
+    <p style="text-align:center;margin-top:50px;" v-if="!resumeList.length">
       <inline-loading></inline-loading><span style="vertical-align:middle;display:inline-block;font-size:14px;">&nbsp;&nbsp;加载中</span>
     </p>
+    <div v-if="(!resumeList.length && isLoad)" class="empty">
+      暂无职位数据
+    </div>
     <loading-more v-if="resumeList.length" :isLoad="isLoad" :text="text" @loadMore="getList()"></loading-more>
     <toast v-model="isErr" type="text" width="15em" :time="1000" is-show-mask :text="err" :position="'middle'">{{ err }}</toast>
   </div>
@@ -24,7 +27,7 @@ export default {
     return {
       defaultImg:require('@/assets/img/no_photo_male.png'),
       resumeList:[],
-      isLoad:true,
+      isLoad:false,
       nowPage:1,
       text:'加载中',
       isErr:false,

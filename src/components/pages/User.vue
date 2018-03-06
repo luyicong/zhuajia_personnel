@@ -1,7 +1,7 @@
 <template>
   <div class="user">
     <div class="user-header">
-      <div class="user-head-img">
+      <div class="user-head-img" @click="upLoadImg()">
         <img :src="defaultImg" alt="">
       </div>
       <p class="user-name">{{ userInfo.realname || '暂未填写' }}</p>
@@ -25,6 +25,16 @@
         <cell :title="`修改密码`" :link="{path:'/updatepwd'}"></cell>
         <!--<cell :title="`个人资料`" :link="{path:'/userinfo'}"></cell>-->
       </group>
+      <div v-transfer-dom>
+        <confirm v-model="confirmIsShow"
+        :title="'温馨提示'"
+        @on-cancel="onCancel"
+        @on-confirm="onConfirm"
+        @on-show="onShow"
+        @on-hide="onHide">
+          <p style="text-align:center;">修改头像功能正在开发中，恭请期待！</p>
+        </confirm>
+      </div>
       <box gap="20px 10px">
         <x-button type="warn" @click.native="exitFn()">退出登录</x-button>
       </box>
@@ -32,20 +42,26 @@
   </div>
 </template>
 <script>
-import { Group , Cell , XButton, Box,cookie} from 'vux'
+import { Group , Cell , XButton, Box, cookie , TransferDomDirective as TransferDom , Confirm} from 'vux'
 import { mapGetters , mapMutations} from 'vuex'
   export default {
+    directives: {
+      TransferDom
+    },
     components: {
       Group,
       Cell,
       XButton,
-      Box
+      Box,
+      Confirm
     },
     data () {
       return {
         defaultImg:require('@/assets/img/no_photo_male.png'),
         // userInfo:{}
-        resumeTipText:''
+        resumeTipText:'',
+        //提示
+        confirmIsShow:false
       }
     },
     computed:{
@@ -54,7 +70,7 @@ import { mapGetters , mapMutations} from 'vuex'
       })
     },
     created() {
-      console.log(this.userInfo)
+      // console.log(this.userInfo)
         if(!Boolean(this.userInfo.user_id)){
           this.$router.push({path:'/'})
         }
@@ -72,6 +88,22 @@ import { mapGetters , mapMutations} from 'vuex'
       exitFn() {
         this.logout({userInfo:{}})
         this.$router.push({path:'/'})
+      },
+      //上传图像
+      upLoadImg() {
+        this.confirmIsShow = true
+      },
+      onCancel() {
+
+      },
+      onConfirm() {
+
+      },
+      onShow() {
+
+      },
+      onHide() {
+        
       }
     }
   }
