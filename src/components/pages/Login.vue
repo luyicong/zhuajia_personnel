@@ -54,7 +54,7 @@ export default {
   },
   created() {
     //do something after creating vue instance
-    console.log(md5('zxc123456'))
+    // console.log(md5('zxc123456'))
     if(Boolean(this.userInfo.user_id)){
       this.$router.push({path:'/user'})
     }

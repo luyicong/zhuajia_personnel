@@ -1,26 +1,30 @@
 <template>
   <div class="resume-list-wrap">
     <candidate-list :data="resumeList"></candidate-list>
-    <loading-more :isLoad="isLoad" :text="text" @loadMore="getList()"></loading-more>
+    <p style="text-align:center;margin-top:50px;" v-if="(!resumeList.length && isLoad)">
+      <inline-loading></inline-loading><span style="vertical-align:middle;display:inline-block;font-size:14px;">&nbsp;&nbsp;加载中</span>
+    </p>
+    <loading-more v-if="resumeList.length" :isLoad="isLoad" :text="text" @loadMore="getList()"></loading-more>
     <toast v-model="isErr" type="text" width="15em" :time="1000" is-show-mask :text="err" :position="'middle'">{{ err }}</toast>
   </div>
 </template>
 <script>
 import CandidateList from '../common/CandidateList'
 import loadingMore from '../common/loadingMore'
-import { Toast } from 'vux'
+import { Toast , InlineLoading} from 'vux'
 import Api from '../../api'
 export default {
   components: {
     CandidateList,
     loadingMore,
-    Toast
+    Toast,
+    InlineLoading
   },
   data () {
     return {
       defaultImg:require('@/assets/img/no_photo_male.png'),
       resumeList:[],
-      isLoad:false,
+      isLoad:true,
       nowPage:1,
       text:'加载中',
       isErr:false,
