@@ -11,7 +11,7 @@
       <div v-if="(!positionList.length && isLoad)" class="empty">
         暂无职位数据
       </div>
-      <loading-more v-if="positionList.length" :isLoad="isLoad" :text="text" @loadMore="getList()"></loading-more>
+      <loading-more v-if="(!$route.query.cate_id && positionList.length)" :isLoad="isLoad" :text="text" @loadMore="getList()"></loading-more>
       <toast v-model="isErr" type="text" width="15em" :time="1000" is-show-mask :text="err" :position="'middle'">{{ err }}</toast>
   </div>
 </template>
@@ -30,6 +30,7 @@ export default {
   data () {
     return {
       positionList:[],
+      isLoading:true,
       isLoad:false,
       nowPage:1,
       text:'加载中',
@@ -39,10 +40,11 @@ export default {
     }
   },
   beforeCreate() {
-    Api.getPositionList().then((res)=>{
+    Api.getPositionList(this.$route.query.cate_id||'',this.nowPage).then((res)=>{
       if(res.status == 1){
         this.positionList = res.data
       }
+      this.isLoading = false
     })
   },
   computed:{
@@ -52,7 +54,11 @@ export default {
   },
   methods: {
     getList() {
-      if(this.text != '加载中') return false
+      // this.isLoading = true
+
+      if(this.text != '加载中') {
+        return false
+      }
       this.isLoad = true
       this.nowPage++
       // console.log(this.nowPage)
@@ -60,24 +66,33 @@ export default {
         if(res.status == 1){
           setTimeout(()=>{
             if(res.data.length){
+
               this.positionList = this.positionList.concat(res.data)
             }else{
               this.text = '已全部加载完'
             }
             this.isLoad = false
+            this.isLoading = false
           },600)
         }else{
           this.isErr = true
         }
       }).catch((err)=>{
         this.isErr = true
+        this.isLoading = false
       })
     },
     //关闭分类
     closeCate() {
       this.$router.push({path:'positionlist'})
       this.positionList = []
-      this.getList()
+      this.isLoading = true
+      Api.getPositionList().then((res)=>{
+        if(res.status == 1){
+          this.positionList = res.data
+        }
+        this.isLoading = false
+      })
     }
   }
 }

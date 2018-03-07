@@ -1,6 +1,6 @@
 <template>
   <div class="loading-more">
-    <load-more v-if="isLoad" :show-loading="isLoad && (text == '加载中')" :tip="text" background-color="#f0f2f5"></load-more>
+    <load-more v-if="isLoad" :show-loading="isLoad && (text === '加载中')" :tip="text" background-color="#f0f2f5"></load-more>
     <div v-else class="load-more" @click="loadMore()">{{text==='加载中'?'加载更多':text}}</div>
   </div>
 </template>

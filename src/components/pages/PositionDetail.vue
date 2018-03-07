@@ -46,7 +46,7 @@
         <div class="pos-requirement-desc" v-html="detailInfo.pos_desc"></div>
       </div>
       <div class="company-contact detail-moudle-item">
-        <div class="moudle-item-title"><h3>联系方式</h3></div>
+        <div class="moudle-item-title"><h3>联系方式</h3><span class="nologin-tip" v-if="!Boolean(this.userInfo.user_id)">（登录后查看）</span></div>
         <div class="company-contact-content">
           <p>{{ detailInfo.comp_phone }}</p>
           <p class="email">{{ detailInfo.comp_email }}</p>
@@ -310,6 +310,9 @@ export default {
 }
 .company-desc p{
   color: #999;
+}
+.nologin-tip{
+  color: #009ee5;
 }
 .company-desc p.desc-text{
     height: 20px;

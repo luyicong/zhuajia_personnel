@@ -13,7 +13,7 @@
            @on-focus="onFocus"
            @on-cancel="onCancel"
            v-model="keyword"
-           auto-scroll-to-top top="46px"
+           :auto-fixed="false"
            ref="search"
            ></search>
       </div>
@@ -275,8 +275,11 @@ Array.prototype.unique = function(key) {
 }
 .search-input-wrap{
   flex:1;
-  /* height: 44px; */
-  /* position: relative; */
+  height: 44px;
+  position: relative;
+}
+.search-input-wrap .vux-search-fixed{
+  width: 100%;
 }
 .key-history-list{
   width: 100%;

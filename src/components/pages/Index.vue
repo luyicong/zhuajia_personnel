@@ -146,17 +146,17 @@ export default {
       // companyList:[{},{},{},{}],
       bannerList:[
         {
-          url: '/#/cooperation',
+          url: '/cooperation',
           img: require('@/assets/img/1.png'),
           fallbackImg: require('@/assets/img/3.jpg')
         },
         {
-          url: 'javascript:',
+          url: '/advpage',
           img: require('@/assets/img/2.jpg'),
           fallbackImg: require('@/assets/img/3.jpg')
         },
         {
-          url: 'javascript:',
+          url: '/advpage',
           img: require('@/assets/img/3.jpg'),
           fallbackImg: require('@/assets/img/3.jpg')
         }

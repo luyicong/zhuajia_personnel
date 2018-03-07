@@ -5,6 +5,7 @@ import Search from '@/components/pages/Search'
 import User from '@/components/pages/User'
 import Cooperation from '@/components/pages/Cooperation'
 import Contact from '@/components/pages/Contact'
+import AdvPage from '@/components/pages/AdvPage'
 // import Detail from '@/components/pages/Detail'
 
 Vue.use(Router)
@@ -18,6 +19,12 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index
+    },
+    //活动广告位页面
+    {
+      path: '/advpage',
+      name: 'advpage',
+      component: AdvPage
     },
     //加盟合作页面
     {

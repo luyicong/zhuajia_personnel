@@ -10,6 +10,11 @@
     <!-- <span v-if="$route.path === '/'" slot="overwrite-left" @click="drawerVisibility = !drawerVisibility">
       <x-icon type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;left:-3px;"></x-icon>
     </span> -->
+    <div slot="right">
+      <!--<div style="width:30px;height:30px; center center no-repeat;margin:0 auto 0 auto;">
+      	<a class="text">?</a>
+      </div>-->
+    </div>
     </x-header>
     <view-box ref="viewBox" body-padding-top="46px" :body-padding-bottom="view_body_pb">
       <transition
@@ -106,6 +111,11 @@ export default {
           this.upDateIsShow({isShow:false});
           return '联系我们'
           break;
+        case '/advpage':
+          this.view_body_pb = '0px'
+          this.upDateIsShow({isShow:false});
+          return '某某某活动'
+          break;
         case '/search':
           return '搜索'
           break;
@@ -194,6 +204,37 @@ body {
   /*padding-top:46px;*/
   box-sizing:border-box;
 }
+// .text{
+//   width: 30px;
+//   height: 30px;
+//   border-radius: 15px;
+//   border: 1px solid #fff;
+//   text-align: center;
+//   font-size: 16px;
+//   line-height: 30px;
+//   -webkit-animation: scaleout 2s infinite ease-in-out;
+//   animation: scaleout 2s infinite ease-in-out;
+// }
+// @-webkit-keyframes scaleout {
+//     0% {
+//       -webkit-transform: scale(1.0);
+//       transform: scale(1.0);
+//     }
+//     100% {
+//         -webkit-transform: scale(1.1);
+//         opacity: 0.5;
+//     }
+// }
+// @keyframes scaleout {
+//     0% {
+//         transform: scale(1.0);
+//         -webkit-transform: scale(1.0);
+//     } 100% {
+//           transform: scale(1.1);
+//           -webkit-transform: scale(1.1);
+//           opacity: 0.5;
+//       }
+// }
 
 .router-view {
   width: 100%;
