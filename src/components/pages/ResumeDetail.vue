@@ -45,6 +45,9 @@
           <p>
             <span lass="key">邮箱：</span><span class="val">{{info.email || '暂无填写'}}</span><!--<span class="nologin-tip">（登录后查看） </span>-->
           </p>
+          <p>
+            <span lass="key">现居住地：</span><span class="val">{{info.nowaddress || '暂无填写'}}</span><!--<span class="nologin-tip">（登录后查看）</span>-->
+          </p>
         </div>
       </div>
       <!-- <div class="resume-info-moudle user-edu-experience">

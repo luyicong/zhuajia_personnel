@@ -7,13 +7,13 @@ import axios from 'axios'
 
 const debug = process.env.NODE_ENV !== 'production'
 
-let baseUrl = ''
+let baseUrl = 'http://talent.yoho167.com/api/v1'
 
-if(debug){
-  baseUrl = 'http://www.mytalent.com/api/v1'
-}else {
-  baseUrl = 'http://talent.yoho167.com/api/v1'
-}
+// if(debug){
+//   baseUrl = 'http://talent.com/api/v1'
+// }else {
+//   baseUrl = 'http://talent.yoho167.com/api/v1'
+// }
 
 export default {
   //获取首页数据
