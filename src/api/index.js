@@ -7,7 +7,7 @@ import axios from 'axios'
 
 const debug = process.env.NODE_ENV !== 'production'
 
-let baseUrl = 'http://talent.yoho167.com/api/v1'
+let baseUrl = 'https://talent.yoho167.com/api/v1'
 
 // if(debug){
 //   baseUrl = 'http://talent.com/api/v1'
